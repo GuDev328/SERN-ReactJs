@@ -1,20 +1,62 @@
+import { divide } from 'lodash';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import './UserManage.scss'
+import { userService } from '../../services'
 class UserManage extends Component {
-
-    state = {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            arrUsers: []
+        }
     }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        let response = await userService.getAllUser('ALL')
+        if (response && response.errCode == 0) {
+            this.setState({
+                arrUsers: response.users,
+            })
+        }
     }
 
 
     render() {
+        let arrUsers = this.state.arrUsers
         return (
-            <div className="text-center">Manage users</div>
+            <div className='user-manage-container'>
+                <div className='title text-center mt-5 '> User Manage </div>
+                <div className='table-user-manage mt-5 mx-5'>
+                    <table className="customers">
+                        <tr>
+                            <th>Email</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                        {
+                            arrUsers && arrUsers.map((item, index) => {
+                                return (
+                                    <tr>
+                                        <td>{item.email}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.address}</td>
+                                        <td>
+                                            <button class="col-5 mx-2 btn btn-warning">Edit</button>
+                                            <button class="col-5 mx-2 btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+
+                    </table>
+                </div>
+
+            </div >
         );
     }
 
