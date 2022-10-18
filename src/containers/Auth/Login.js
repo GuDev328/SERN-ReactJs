@@ -6,20 +6,22 @@ import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { divide } from 'lodash';
+import { userService } from '../../services'
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
             isShowPassword: false,
+            errMessage: ''
         }
     }
 
-    handleOnChangeUsernameInput = (event) => {
+    handleOnChangeEmailInput = (event) => {
         this.setState({
-            username: event.target.value
+            email: event.target.value
         })
     }
 
@@ -29,8 +31,36 @@ class Login extends Component {
         })
     }
 
-    handleOnClickLogin = (event) => {
-        console.log(this.state)
+    handleOnClickLogin = async (event) => {
+        this.setState({
+            errMessage: '',
+        })
+        try {
+            let data = await userService.handleLogin(this.state.email, this.state.password)
+
+            //Case wrong password
+            if (data && data.errCode != 0) {
+                this.setState({
+                    errMessage: data.message,
+                })
+            }
+
+            //Case login success
+            if (data && data.errCode == 0) {
+                this.props.userLoginSuccess(data.user)
+            }
+
+        } catch (error) {
+            //case error because not input parameter login
+            if (error.response) {
+                if (error.response.data) {
+                    this.setState({
+                        errMessage: error.response.data.message,
+                    })
+                }
+            }
+        }
+
     }
     handleShowHidePassword = () => {
         this.setState({
@@ -48,9 +78,9 @@ class Login extends Component {
                             <label className='text-username'>UserName</label>
                             <input className='form-control login-input'
                                 type='text'
-                                placeholder='Input Your Username'
-                                value={this.state.username}
-                                onChange={(event) => this.handleOnChangeUsernameInput(event)}
+                                placeholder='Input Your Email'
+                                value={this.state.email}
+                                onChange={(event) => this.handleOnChangeEmailInput(event)}
                             />
                             <label className='text-password'>PassWord</label>
                             <div className='inputpassword'>
@@ -65,7 +95,7 @@ class Login extends Component {
                                 ><i class={this.state.isShowPassword ? 'fas fa-eye-slash eye' : 'fas fa-eye eye'}></i></div>
 
                             </div>
-
+                            <div className='col-12 errMessage'>{this.state.errMessage}</div>
                             <div className='forgot-password'>Forgot password?</div>
                             <button className='btn-login'
                                 onClick={(event) => this.handleOnClickLogin(event)}
@@ -94,9 +124,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginFail: () => dispatch(actions.userLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
