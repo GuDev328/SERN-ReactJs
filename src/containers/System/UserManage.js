@@ -23,6 +23,15 @@ class UserManage extends Component {
         }
     }
 
+    reGetAllUser = async () => {
+        let response = await userService.getAllUser('ALL')
+        if (response && response.errCode == 0) {
+            this.setState({
+                arrUsers: response.users,
+            })
+        }
+    }
+
     handleOnClickHandleANewUser = () => {
         this.setState({
             isOpenModalUser: true
@@ -35,13 +44,33 @@ class UserManage extends Component {
         })
     }
 
+    createANewUser = async (dataUser) => {
+        try {
+            let response = await userService.createANewUser(dataUser)
+            if (response && response.errCode != 0) {
+                alert(response.message)
+            }
+            if (response && response.errCode == 0) {
+                await this.reGetAllUser()
+                this.setState({
+                    isOpenModalUser: false
+                })
+            }
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     render() {
         let arrUsers = this.state.arrUsers
         return (
             <div className='user-manage-container'>
                 <ModalUser
                     isOpen={this.state.isOpenModalUser}
-                    toggle={this.toggleUser} />
+                    toggle={this.toggleUser}
+                    createANewUser={this.createANewUser} />
                 <div className='title text-center mt-5 '> User Manage </div>
                 <div>
                     <button className='btn btn-primary mx-5 px-3'

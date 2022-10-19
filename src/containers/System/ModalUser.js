@@ -6,7 +6,14 @@ class ModalUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            address: '',
+            phoneNumber: '',
+            gender: '',
+            roleId: '',
         }
     }
 
@@ -17,6 +24,32 @@ class ModalUser extends Component {
         this.props.toggle()
     }
 
+    handleOnChangeInput = (event, id) => {
+        let copyState = { ...this.state }
+        copyState[id] = event.target.value
+        this.setState({
+            ...copyState
+        })
+
+    }
+    checkValideInput = () => {
+        let isValid = true
+        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'roleId']
+        for (let i = 0; i < arrInput.length; i++) {
+            if (!this.state[arrInput[i]]) {
+                isValid = false
+                alert("Missing parameter: " + arrInput[i])
+                break
+            }
+        }
+        return isValid
+    }
+    handleAddANewUser = () => {
+        let isValid = this.checkValideInput()
+        if (isValid) {
+            this.props.createANewUser(this.state)
+        }
+    }
     render() {
         return (
             <Modal
@@ -31,43 +64,45 @@ class ModalUser extends Component {
                         <div className="row">
                             <div className="form-group col-6">
                                 <label for="">Email</label>
-                                <input type="email" className="form-control" name="email" placeholder="Email" />
+                                <input onChange={(event) => this.handleOnChangeInput(event, 'email')} type="email" className="form-control" name="email" placeholder="Email" />
                             </div>
                             <div className="form-group col-6">
                                 <label for="">Password</label>
-                                <input type="password" className="form-control" name="password" placeholder="Password" />
+                                <input onChange={(event) => this.handleOnChangeInput(event, 'password')} type="password" className="form-control" name="password" placeholder="Password" />
                             </div>
                         </div>
                         <div className='row'>
                             <div className="form-group col-6">
                                 <label for="">First Name</label>
-                                <input type="text" className="form-control" name="firstName" placeholder="First Name" />
+                                <input onChange={(event) => this.handleOnChangeInput(event, 'firstName')} type="text" className="form-control" name="firstName" placeholder="First Name" />
                             </div>
                             <div className="form-group col-md-6">
                                 <label for="">Last Name</label>
-                                <input type="text" className="form-control" name="lastName" placeholder="Last Name" />
+                                <input onChange={(event) => this.handleOnChangeInput(event, 'lastName')} type="text" className="form-control" name="lastName" placeholder="Last Name" />
                             </div>
                         </div>
 
                         <label for="">Address</label>
-                        <input type="text" className="form-control" name="address" placeholder="1234 Main St" />
+                        <input onChange={(event) => this.handleOnChangeInput(event, 'address')} type="text" className="form-control" name="address" placeholder="1234 Main St" />
 
                         <div className='row'>
                             <div className="form-group col-5">
                                 <label for="">Phone Number</label>
-                                <input type="text" className="form-control" name="phoneNumber" />
+                                <input onChange={(event) => this.handleOnChangeInput(event, 'phoneNumber')} type="text" className="form-control" name="phoneNumber" />
                             </div>
                             <div className="form-group col-4">
                                 <label for="">Gender</label>
-                                <select name="gender" className="form-control">
-                                    <option selected value="1">Male</option>
+                                <select onChange={(event) => this.handleOnChangeInput(event, 'gender')} name="gender" className="form-control">
+                                    <option selected value="">-Choose-</option>
+                                    <option value="1">Male</option>
                                     <option value="0">Female</option>
                                 </select>
                             </div>
                             <div className="form-group col-3">
                                 <label for="">Role</label>
-                                <select name="roleId" className="form-control">
-                                    <option selected value="R3">Patient</option>
+                                <select onChange={(event) => this.handleOnChangeInput(event, 'roleId')} name="roleId" className="form-control">
+                                    <option selected value="">-Choose-</option>
+                                    <option value="R3">Patient</option>
                                     <option value="R2">Doctor</option>
                                     <option value="R1">Admin</option>
                                 </select>
@@ -77,8 +112,8 @@ class ModalUser extends Component {
 
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={() => this.toggle()}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={() => this.toggle()}>Cancel</Button>
+                    <Button className='px-3' color="primary" onClick={() => this.handleAddANewUser()}>Add New</Button>{' '}
+                    <Button className='px-3' color="secondary" onClick={() => this.toggle()}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         )
