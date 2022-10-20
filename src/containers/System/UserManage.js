@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import './UserManage.scss'
 import { userService } from '../../services'
 import ModalUser from './ModalUser';
+import { emitter } from '../../utils/emitter'
+
 class UserManage extends Component {
     constructor(props) {
         super(props)
@@ -56,11 +58,25 @@ class UserManage extends Component {
                     isOpenModalUser: false
                 })
             }
-            console.log(response)
+            emitter.emit('EVENT_CLEAR_MODAL_DATA')
         } catch (error) {
             console.log(error)
         }
 
+    }
+
+    handleDeleteUser = async (user) => {
+        try {
+            let response = await userService.deleteUser(user)
+            if (response && response.errCode == '0') {
+                await this.reGetAllUser()
+            } else {
+                alert(response.message)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -88,6 +104,7 @@ class UserManage extends Component {
                         </tr>
                         {
                             arrUsers && arrUsers.map((item, index) => {
+                                let idUser = item.id
                                 return (
                                     <tr>
                                         <td>{item.email}</td>
@@ -96,7 +113,7 @@ class UserManage extends Component {
                                         <td>{item.address}</td>
                                         <td>
                                             <button class="col-5 mx-2 btn btn-warning">Edit</button>
-                                            <button class="col-5 mx-2 btn btn-danger">Delete</button>
+                                            <button onClick={() => this.handleDeleteUser(item)} class="col-5 mx-2 btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 )
