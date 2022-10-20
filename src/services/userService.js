@@ -18,6 +18,10 @@ const userService = {
                 id: user.id
             }
         })
+    },
+
+    editUser: (user) => {
+        return axios.put('/api/edit-user', user)
     }
 }
 export default userService;
