@@ -1,0 +1,77 @@
+.home-header-container {
+    font-family: Montserrat, sans-serif;
+    width: 100%;
+    height: 80px;
+
+    .home-header-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        .left-content {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .menu-logo {
+                display: flex;
+
+                .menu {
+                    font-size: 25px;
+                    margin-bottom: 10px;
+                    margin-left: 90px;
+                }
+
+                .logo {
+                    margin-left: 10px;
+                    width: 160px;
+                    height: 40px;
+                }
+            }
+        }
+
+        .center-content {
+            width: 50%;
+            display: flex;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .child-content {
+                margin: 10px;
+
+                .title-child {
+                    color: #333;
+                    font-weight: bold;
+                    font-size: 13px;
+                }
+
+                .description-child {
+                    font-weight: lighter;
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .right-content {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon-help {
+                font-size: 15px;
+                color: #45c3d2;
+            }
+
+            .help {
+                color: #969495;
+                font-weight: bold;
+                font-size: 15px;
+            }
+        }
+    }
+}
