@@ -81,10 +81,35 @@
                 .lang-vi {
                     margin-right: 10px;
                     cursor: pointer;
+                    opacity: 0.5;
+
+                    &.action {
+                        span {
+                            color: #f7d800;
+                            opacity: 1;
+
+                        }
+                    }
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
 
                 .lang-en {
                     cursor: pointer;
+                    opacity: 0.5;
+
+                    &.action {
+                        span {
+                            color: #f7d800;
+                            opacity: 1;
+                        }
+                    }
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
             }
         }
@@ -98,6 +123,7 @@
     background-size: cover;
     background-position: 0px -40px;
     position: relative;
+    margin-bottom: 30px;
 
     .mask-black {
         position: absolute;

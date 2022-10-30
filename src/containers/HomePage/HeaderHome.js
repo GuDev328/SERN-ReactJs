@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HeaderHome.scss'
 import { FormattedMessage } from 'react-intl'
+import { languages } from '../../utils'
+import { changeLanguageApp } from '../../store/actions'
+
 class HeaderHome extends Component {
+
+    handleChangeLanguage = (lang) => {
+        this.props.changeLanguageAppRedux(lang)
+    }
 
     render() {
         return (
@@ -41,8 +48,8 @@ class HeaderHome extends Component {
                             <i class="icon-help fas fa-question-circle"></i>
                             <div className='help'><FormattedMessage id="homeheader.support" /></div>
                             <div className='language'>
-                                <div className='lang-vi'>VI</div>
-                                <div className='lang-en'>EN</div>
+                                <div className={this.props.language === languages.VI ? 'lang-vi action' : 'lang-vi'} ><span onClick={() => this.handleChangeLanguage(languages.VI)}>VI</span></div>
+                                <div className={this.props.language === languages.EN ? 'lang-en action' : 'lang-en'}><span onClick={() => this.handleChangeLanguage(languages.EN)}>EN</span></div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +110,7 @@ class HeaderHome extends Component {
                         </div>
                     </div>
                 </div>
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 
@@ -118,6 +125,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang))
     };
 };
 

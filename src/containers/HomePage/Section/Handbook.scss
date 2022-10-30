@@ -1,0 +1,23 @@
+.handbook {
+    height: 285px !important;
+
+    .section-content {
+
+        .div-section {
+            display: flex !important;
+
+            .img-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .img-cus {
+
+                width: 280px;
+                height: 150px;
+
+            }
+
+        }
+    }
+}

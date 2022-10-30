@@ -13,6 +13,7 @@ class ModalEditUser extends Component {
             address: '',
             phoneNumber: '',
             gender: '',
+            roleId: ''
         }
 
     }
@@ -26,6 +27,7 @@ class ModalEditUser extends Component {
             address: this.props.userDataEdit.address,
             phoneNumber: this.props.userDataEdit.phoneNumber,
             gender: this.props.userDataEdit.gender + '',
+            roleId: this.props.userDataEdit.roleId + '',
         })
     }
 
@@ -43,7 +45,7 @@ class ModalEditUser extends Component {
     }
     checkValidateInput = () => {
         let isValid = true
-        let arrInput = ['firstName', 'lastName', 'address', 'phoneNumber', 'gender']
+        let arrInput = ['firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'roleId']
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false
@@ -96,6 +98,15 @@ class ModalEditUser extends Component {
                                     <option selected value="">-Choose-</option>
                                     <option value="1">Male</option>
                                     <option value="0">Female</option>
+                                </select>
+                            </div>
+                            <div className="form-group col-3">
+                                <label for="">Role</label>
+                                <select onChange={(event) => this.handleOnChangeInput(event, 'roleId')} value={this.state.roleId} name="roleId" className="form-control">
+                                    <option selected value="">-Choose-</option>
+                                    <option value="R1">Admin</option>
+                                    <option value="R2">Doctor</option>
+                                    <option value="R3">Patient</option>
                                 </select>
                             </div>
                         </div>

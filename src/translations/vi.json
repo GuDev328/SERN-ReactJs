@@ -24,6 +24,12 @@
         "child8": "Gói phẫu thuật",
         "child9": "Sức khoẻ doanh nghiệp"
     },
+    "section-specialty": {
+        "specialty-popular": "Chuyên khoa phổ biến",
+        "showmore": "Xem thêm",
+        "medical-facility": "Cơ sở y tế nổi bật",
+        "search": "Tìm kiếm"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

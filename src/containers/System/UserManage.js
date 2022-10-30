@@ -96,6 +96,7 @@ class UserManage extends Component {
 
     handleEditUser = async (user) => {
         try {
+            console.log(user)
             let response = await userService.editUser(user)
             if (response && response.errCode == '0') {
                 await this.reGetAllUser()
@@ -139,6 +140,7 @@ class UserManage extends Component {
                             <th>Firstname</th>
                             <th>Lastname</th>
                             <th>Address</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                         {
@@ -150,6 +152,7 @@ class UserManage extends Component {
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
+                                        <td>{item.roleId}</td>
                                         <td>
                                             <button onClick={() => this.handleOnClickEditUser(item)} class="col-5 mx-2 btn btn-warning">Edit</button>
                                             <button onClick={() => this.handleDeleteUser(item)} class="col-5 mx-2 btn btn-danger">Delete</button>
