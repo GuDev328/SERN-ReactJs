@@ -83,14 +83,6 @@
                     cursor: pointer;
                     opacity: 0.5;
 
-                    &.action {
-                        span {
-                            color: #f7d800;
-                            opacity: 1;
-
-                        }
-                    }
-
                     &:hover {
                         opacity: 1;
                     }
@@ -100,15 +92,18 @@
                     cursor: pointer;
                     opacity: 0.5;
 
-                    &.action {
-                        span {
-                            color: #f7d800;
-                            opacity: 1;
-                        }
-                    }
 
                     &:hover {
                         opacity: 1;
+                    }
+                }
+
+                .action {
+                    opacity: 1;
+
+                    span {
+                        color: #f7d800;
+
                     }
                 }
             }

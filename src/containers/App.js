@@ -47,7 +47,7 @@ class App extends Component {
             <Fragment>
                 <Router history={history}>
                     <div className="main-container">
-                        {this.props.isLoggedIn && <Header />}
+                        {/* {this.props.isLoggedIn && <Header />} */}
 
                         <div className="content-container">
                             <CustomScrollbars style={{ width: '100%', height: '100vh' }}>

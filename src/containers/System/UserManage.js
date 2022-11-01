@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
+import Header from '../Header/Header';
 import { userService } from '../../services'
 import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
@@ -115,6 +116,7 @@ class UserManage extends Component {
         let arrUsers = this.state.arrUsers
         return (
             <div className='user-manage-container'>
+                <Header />
                 <ModalUser
                     isOpen={this.state.isOpenModalUser}
                     toggle={this.toggleUser}
@@ -139,7 +141,7 @@ class UserManage extends Component {
                             <th>Email</th>
                             <th>Firstname</th>
                             <th>Lastname</th>
-                            <th>Address</th>
+                            <th>Phonenumber</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -151,7 +153,7 @@ class UserManage extends Component {
                                         <td>{item.email}</td>
                                         <td>{item.firstName}</td>
                                         <td>{item.lastName}</td>
-                                        <td>{item.address}</td>
+                                        <td>{item.phoneNumber}</td>
                                         <td>{item.roleId}</td>
                                         <td>
                                             <button onClick={() => this.handleOnClickEditUser(item)} class="col-5 mx-2 btn btn-warning">Edit</button>
