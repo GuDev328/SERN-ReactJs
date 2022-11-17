@@ -1,4 +1,15 @@
 {
+    "user": {
+        "password": "Mật khẩu",
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "address": "Địa chỉ",
+        "phoneNumber": "Số điện thoại",
+        "gender": "Giới tính",
+        "positionId": "Vị trí",
+        "roleId": "Người dùng",
+        "image": "Ảnh"
+    },
     "homeheader": {
         "speciality": "Chuyên khoa",
         "search-doctor": "Tìm bác sĩ theo chuyên khoa",

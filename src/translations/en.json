@@ -1,4 +1,15 @@
 {
+    "user": {
+        "password": "Password",
+        "firstName": "First Name",
+        "lastName": "LastName",
+        "address": "Address",
+        "phoneNumber": "Phone Number",
+        "gender": "Gender",
+        "positionId": "Posstion",
+        "roleId": "Role",
+        "image": "Image"
+    },
     "homeheader": {
         "speciality": "Medical speciality",
         "search-doctor": "Find a doctor by speciality",
