@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
+import './UserManageRedux.scss'
 import { FormattedMessage } from 'react-intl';
 import Header from '../../Header/Header';
 import { connect } from 'react-redux';
@@ -24,21 +27,17 @@ class UserManageRedux extends Component {
             roleId: '',
 
             genderArr: [],
+            positionArr: [],
+            roleArr: [],
+
+            isOpen: false
         }
     }
 
     async componentDidMount() {
         this.props.getGenderStart()
-        // try {
-        //     let res = await userService.getAllCodeService('ROLE')
-        //     if (res && res.errCode === 0) {
-        //         this.setState({
-        //             genderArr: res.data
-        //         })
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        this.props.getPositionStart()
+        this.props.getRoleStart()
     }
 
     handleOnChangeInput = (event, id) => {
@@ -51,7 +50,7 @@ class UserManageRedux extends Component {
     }
     checkValidateInput = () => {
         let isValid = true
-        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'roleId']
+        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'positionId', 'gender', 'roleId']
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false
@@ -100,10 +99,36 @@ class UserManageRedux extends Component {
                 genderArr: this.props.genders
             })
         }
+        if (prevProps.positions !== this.props.positions) {
+            this.setState({
+                positionArr: this.props.positions
+            })
+        }
+        if (prevProps.roles !== this.props.roles) {
+            this.setState({
+                roleArr: this.props.roles
+            })
+        }
     }
-
+    handleOnChangeImage = (event) => {
+        let data = event.target.files
+        let file = data[0]
+        if (file) {
+            let objectUrl = URL.createObjectURL(file)
+            this.setState({
+                image: objectUrl
+            })
+        }
+    }
+    openPreviewAvt = () => {
+        this.setState({
+            isOpen: true
+        })
+    }
     render() {
         let genders = this.state.genderArr;
+        let positions = this.state.positionArr;
+        let roles = this.state.roleArr;
         return (
             <div className='user-redux-container'>
                 <Header />
@@ -138,9 +163,10 @@ class UserManageRedux extends Component {
                             <label for=""><FormattedMessage id="user.phoneNumber" /></label>
                             <input onChange={(event) => this.handleOnChangeInput(event, 'phoneNumber')} value={this.state.phoneNumber} type="text" className="form-control" name="phoneNumber" />
                         </div>
-                        <div className="form-group col-3">
+                        <div className="form-group col-1">
                             <label for=""><FormattedMessage id="user.gender" /></label>
                             <select onChange={(event) => this.handleOnChangeInput(event, 'gender')} value={this.state.gender} name="gender" className="form-control">
+                                <option selected value="">-Choose-</option>
                                 {genders && genders.length > 0 &&
                                     genders.map((item, index) => {
                                         return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
@@ -154,6 +180,11 @@ class UserManageRedux extends Component {
                             <label for=""><FormattedMessage id="user.positionId" /></label>
                             <select onChange={(event) => this.handleOnChangeInput(event, 'positionId')} value={this.state.positionId} name="positionId" className="form-control">
                                 <option selected value="">-Choose-</option>
+                                {positions && positions.length > 0 &&
+                                    positions.map((item, index) => {
+                                        return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                    })
+                                }
 
                             </select>
                         </div>
@@ -162,22 +193,37 @@ class UserManageRedux extends Component {
                             <label for=""><FormattedMessage id="user.roleId" /></label>
                             <select onChange={(event) => this.handleOnChangeInput(event, 'roleId')} value={this.state.roleId} name="roleId" className="form-control">
                                 <option selected value="">-Choose-</option>
+                                {roles && roles.length > 0 &&
+                                    roles.map((item, index) => {
+                                        return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                    })
+                                }
 
                             </select>
                         </div>
-                        <div className="form-group col-2">
+                        <div className="form-group col-4">
                             <label for=""><FormattedMessage id="user.image" /></label>
-                            <select onChange={(event) => this.handleOnChangeInput(event, 'image')} value={this.state.image} name="image" className="form-control">
-                                <option selected value="">-Choose-</option>
+                            <div className='preview-avt-container'>
+                                <input type='file' id='upload_avt' hidden onChange={(event) => this.handleOnChangeImage(event)} className="form-control" />
+                                <label className='upload-avt' htmlFor='upload_avt'><i className="fas fa-upload"></i>Tải lên</label>
+                                <div className='preview-avt'
+                                    style={{ backgroundImage: `url(${this.state.image})` }}
+                                    onClick={() => this.openPreviewAvt()}
+                                ></div>
+                            </div>
 
-                            </select>
+
                         </div>
 
                     </div>
                     <Button className='mt-3 px-3' color="primary" onClick={() => this.handleAddANewUser()}>Add New</Button>{' '}
                 </div>
-
-
+                {this.state.isOpen === true &&
+                    <Lightbox
+                        mainSrc={this.state.image}
+                        onCloseRequest={() => this.setState({ isOpen: false })}
+                    />
+                }
             </div>
         )
     }
@@ -187,15 +233,17 @@ class UserManageRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        genders: state.admin.genders
+        genders: state.admin.genders,
+        positions: state.admin.positions,
+        roles: state.admin.roles
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
-        // processLogout: () => dispatch(actions.processLogout()),
-        // changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang))
+        getPositionStart: () => dispatch(actions.fetchPositionStart()),
+        getRoleStart: () => dispatch(actions.fetchRoleStart())
     };
 };
 
