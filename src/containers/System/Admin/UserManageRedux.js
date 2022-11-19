@@ -121,6 +121,7 @@ class UserManageRedux extends Component {
         }
     }
     openPreviewAvt = () => {
+        if (!this.state.image) return;
         this.setState({
             isOpen: true
         })
@@ -169,7 +170,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {genders && genders.length > 0 &&
                                     genders.map((item, index) => {
-                                        return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
@@ -182,7 +183,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {positions && positions.length > 0 &&
                                     positions.map((item, index) => {
-                                        return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
@@ -195,7 +196,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {roles && roles.length > 0 &&
                                     roles.map((item, index) => {
-                                        return (<option key={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
