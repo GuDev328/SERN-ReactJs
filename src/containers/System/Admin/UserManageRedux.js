@@ -29,7 +29,7 @@ class UserManageRedux extends Component {
             genderArr: [],
             positionArr: [],
             roleArr: [],
-
+            avtPrev: '',
             isOpen: false
         }
     }
@@ -85,6 +85,8 @@ class UserManageRedux extends Component {
                     image: '',
                     gender: '',
                     roleId: '',
+                    avtPrev: '',
+                    isOpen: false
                 })
                 alert('Create a new user sucsessfully!')
             }
@@ -116,12 +118,13 @@ class UserManageRedux extends Component {
         if (file) {
             let objectUrl = URL.createObjectURL(file)
             this.setState({
-                image: objectUrl
+                avtPrev: objectUrl,
+                image: file.name
             })
         }
     }
     openPreviewAvt = () => {
-        if (!this.state.image) return;
+        if (!this.state.avtPrev) return;
         this.setState({
             isOpen: true
         })
@@ -130,6 +133,7 @@ class UserManageRedux extends Component {
         let genders = this.state.genderArr;
         let positions = this.state.positionArr;
         let roles = this.state.roleArr;
+        console.log(this.state.image)
         return (
             <div className='user-redux-container'>
                 <Header />
@@ -208,7 +212,7 @@ class UserManageRedux extends Component {
                                 <input type='file' id='upload_avt' hidden onChange={(event) => this.handleOnChangeImage(event)} className="form-control" />
                                 <label className='upload-avt' htmlFor='upload_avt'><i className="fas fa-upload"></i>Tải lên</label>
                                 <div className='preview-avt'
-                                    style={{ backgroundImage: `url(${this.state.image})` }}
+                                    style={{ backgroundImage: `url(${this.state.avtPrev})` }}
                                     onClick={() => this.openPreviewAvt()}
                                 ></div>
                             </div>
@@ -221,7 +225,7 @@ class UserManageRedux extends Component {
                 </div>
                 {this.state.isOpen === true &&
                     <Lightbox
-                        mainSrc={this.state.image}
+                        mainSrc={this.state.avtPrev}
                         onCloseRequest={() => this.setState({ isOpen: false })}
                     />
                 }
