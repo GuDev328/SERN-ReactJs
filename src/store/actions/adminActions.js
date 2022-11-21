@@ -82,3 +82,29 @@ export const fetchRoleFail = () => ({
     type: actionTypes.FETCH_ROLE_FAIL
 });
 
+
+export const fetchAllUsersStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllUser("ALL");
+            console.log(res.users)
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllUsersSuccess(res.users));
+            } else {
+                dispatch(fetchAllUsersFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllUsersFail());
+            console.log("fetchAllUsersStart" + error)
+        }
+    }
+};
+
+export const fetchAllUsersSuccess = (dataUsers) => ({
+    type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+    data: dataUsers
+});
+
+export const fetchAllUsersFail = () => ({
+    type: actionTypes.FETCH_ALL_USERS_FAIL
+});
