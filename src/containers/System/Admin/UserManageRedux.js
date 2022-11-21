@@ -7,8 +7,9 @@ import { FormattedMessage } from 'react-intl';
 import Header from '../../Header/Header';
 import { connect } from 'react-redux';
 import { userService } from '../../../services'
-import { languages } from '../../../utils';
+import { languages, CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions'
+import { isBuffer } from 'lodash';
 
 class UserManageRedux extends Component {
 
@@ -36,6 +37,7 @@ class UserManageRedux extends Component {
             arrUsers: [],
 
             isEditing: false,
+            isChangeImage: false
         }
     }
 
@@ -89,6 +91,7 @@ class UserManageRedux extends Component {
 
     createANewUser = async (dataUser) => {
         try {
+            console.log('from create: ', dataUser)
             let response = await userService.createANewUser(dataUser)
             if (response && response.errCode != 0) {
                 alert(response.message)
@@ -140,14 +143,16 @@ class UserManageRedux extends Component {
 
         }
     }
-    handleOnChangeImage = (event) => {
+    handleOnChangeImage = async (event) => {
         let data = event.target.files
         let file = data[0]
         if (file) {
+            let base64 = await CommonUtils.getBase64(file)
             let objectUrl = URL.createObjectURL(file)
             this.setState({
                 avtPrev: objectUrl,
-                image: file.name
+                image: base64,
+                isChangeImage: true
             })
         }
     }
@@ -173,7 +178,11 @@ class UserManageRedux extends Component {
     }
 
     handleOnClickEditUser = async (user) => {
-        console.log(user)
+        let imgBase64 = ''
+        if (user.image) {
+            imgBase64 = new Buffer(user.image, 'base64').toString('binary')
+        }
+
         this.setState({
             id: user.id,
             email: user.email,
@@ -182,22 +191,31 @@ class UserManageRedux extends Component {
             address: user.address,
             phoneNumber: user.phoneNumber,
             positionId: user.positionId,
-            image: user.image,
             gender: user.gender,
+            image: '',
             roleId: user.roleId,
-            avtPrev: user.avtPrev,
+            avtPrev: imgBase64,
             isEditing: true,
         })
+
+        if (this.state.isChangeImage) {
+            this.setState({
+                image: user.image
+            })
+        }
+        console.log('from edit:', user)
     }
 
     handleSaveChangeUser = async (user) => {
         try {
+            console.log('from change:', user)
             let isValid = this.checkValidateInputEdit()
             if (isValid) {
                 let response = await userService.editUser(user)
                 if (response && response.errCode == '0') {
                     await this.props.getAllUsersStart()
                     this.setState({
+                        id: '',
                         email: '',
                         password: '',
                         firstName: '',
@@ -209,7 +227,8 @@ class UserManageRedux extends Component {
                         gender: '',
                         roleId: '',
                         avtPrev: '',
-                        isEditing: false
+                        isEditing: false,
+                        isChangeImage: false
                     })
                 } else {
                     alert(response.message)
@@ -226,7 +245,6 @@ class UserManageRedux extends Component {
         let positions = this.state.positionArr;
         let roles = this.state.roleArr;
         let users = this.state.arrUsers;
-        console.log(this.state.image)
         return (
             <div className='user-redux-container'>
                 <Header />
