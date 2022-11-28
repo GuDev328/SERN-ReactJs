@@ -9,15 +9,36 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import avt from '../../../assets/imgrac.jpg'
+import * as actions from '../../../store/actions'
 
 
 class DoctorWeek extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            arrTopDoctors: [],
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.topDoctors !== this.props.topDoctors) {
+            this.setState({
+                arrTopDoctors: this.props.topDoctors
+            })
+        }
+    }
 
     handleChangeLanguage = (lang) => {
         this.props.changeLanguageAppRedux(lang)
     }
 
+    componentDidMount() {
+        this.props.loadTopDoctors()
+    }
+
     render() {
+        let topDoctors = this.state.arrTopDoctors
+        topDoctors = topDoctors.concat(topDoctors).concat(topDoctors)
         var settings = {
             dots: false,
             infinite: true,
@@ -34,37 +55,22 @@ class DoctorWeek extends Component {
                     </div>
                     <div className='section-content'>
                         <Slider {...settings}>
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>PGS, TS, Giảng viên cao cấp Trần Hữu Bình</p>
-                                <p className='speciality-of-doctor'>Sức khoẻ tâm thần</p>
-                            </div>
+                            {topDoctors && topDoctors.length > 0 &&
+                                topDoctors.map((item, index) => {
+                                    let imgBase64 = ''
+                                    if (item.image) {
+                                        imgBase64 = new Buffer(item.image, 'base64').toString('binary')
+                                    }
+                                    return (
+                                        <div className='div-section'>
+                                            <img className='img-cus' src={imgBase64} />
+                                            <p className='img-title'>{this.props.language == languages.VI ? item.positionData.valueVi : item.positionData.valueEn} {item.lastName} {item.firstName}</p>
+                                            <p className='speciality-of-doctor'>Sức khoẻ tâm thần</p>
+                                        </div>
+                                    )
+                                })
+                            }
 
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng</p>
-                                <p className='speciality-of-doctor'>Da liễu</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>Khám Tại Trung Tâm Tiêu hóa Doctor Check</p>
-                                <p className='speciality-of-doctor'>Tiêu hoá</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>Giáo sư, Tiến sĩ Hà Văn Quyết</p>
-                                <p className='speciality-of-doctor'>Tiêu hoá- Viêm gan</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>Bác sĩ Chuyên khoa I Nguyễn Trọng Tuân</p>
-                                <p className='speciality-of-doctor'>Sức khoẻ tâm thần</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={avt} />
-                                <p className='img-title'>Phó Giáo sư, Tiến sĩ, Bác sĩ Nguyễn Thị Hoài An</p>
-                                <p className='speciality-of-doctor'>Tai mũi họng</p>
-                            </div>
                         </Slider>
                     </div>
                 </div>
@@ -78,11 +84,13 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        topDoctors: state.admin.topDoctors
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        loadTopDoctors: () => dispatch(actions.fetchTopDoctorsStart()),
         changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang))
     };
 };

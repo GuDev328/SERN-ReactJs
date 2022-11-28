@@ -198,6 +198,7 @@ class UserManageRedux extends Component {
             isEditing: true,
         })
 
+        console.log(this.state)
         if (this.state.isChangeImage) {
             this.setState({
                 image: user.image
@@ -285,7 +286,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {genders && genders.length > 0 &&
                                     genders.map((item, index) => {
-                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.keyMap}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
@@ -298,7 +299,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {positions && positions.length > 0 &&
                                     positions.map((item, index) => {
-                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.keyMap}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
@@ -311,7 +312,7 @@ class UserManageRedux extends Component {
                                 <option selected value="">-Choose-</option>
                                 {roles && roles.length > 0 &&
                                     roles.map((item, index) => {
-                                        return (<option value={item.key}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
+                                        return (<option value={item.keyMap}>{this.props.language == languages.VI ? item.valueVi : item.valueEn}</option>)
                                     })
                                 }
 
@@ -366,8 +367,8 @@ class UserManageRedux extends Component {
                                         <td>{item.phoneNumber}</td>
                                         <td>{item.roleId}</td>
                                         <td>
-                                            <button onClick={() => this.handleOnClickEditUser(item)} class="col-5 mx-2 btn btn-warning">Edit</button>
-                                            <button onClick={() => this.handleDeleteUser(item)} class="col-5 mx-2 btn btn-danger">Delete</button>
+                                            <button onClick={() => this.handleOnClickEditUser(item)} class="col-5 mx-2 btn-ring btn-ring-warning"  >Edit</button>
+                                            <button onClick={() => this.handleDeleteUser(item)} class="col-5 mx-2 btn-ring btn-ring-danger">Delete</button>
                                         </td>
                                     </tr>
                                 )
@@ -378,7 +379,7 @@ class UserManageRedux extends Component {
                 </div>
 
 
-            </div>
+            </div >
         )
     }
 

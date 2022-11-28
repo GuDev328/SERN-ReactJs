@@ -26,6 +26,10 @@ const userService = {
 
     getAllCodeService: (inputType) => {
         return axios.get(`/api/allcode?type=${inputType}`)
+    },
+
+    getTopDoctor: (limit) => {
+        return axios.get(`/api/get-top-doctor?limit=${limit}`)
     }
 }
 export default userService;

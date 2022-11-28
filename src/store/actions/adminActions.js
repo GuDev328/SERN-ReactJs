@@ -87,7 +87,6 @@ export const fetchAllUsersStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await userService.getAllUser("ALL");
-            console.log(res.users)
             if (res && res.errCode === 0) {
                 dispatch(fetchAllUsersSuccess(res.users));
             } else {
@@ -107,4 +106,31 @@ export const fetchAllUsersSuccess = (dataUsers) => ({
 
 export const fetchAllUsersFail = () => ({
     type: actionTypes.FETCH_ALL_USERS_FAIL
+});
+
+
+export const fetchTopDoctorsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let resTopDoctor = await userService.getTopDoctor(10)
+            resTopDoctor = resTopDoctor.topDoctors
+            if (resTopDoctor && resTopDoctor.errCode === 0) {
+                dispatch(fetchTopDoctorsSuccess(resTopDoctor.data));
+            } else {
+                dispatch(fetchTopDoctorsFail());
+            }
+        } catch (error) {
+            dispatch(fetchTopDoctorsFail());
+            console.log("fetchTopDoctorsStart" + error)
+        }
+    }
+};
+
+export const fetchTopDoctorsSuccess = (datatopDoctors) => ({
+    type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
+    data: datatopDoctors
+});
+
+export const fetchTopDoctorsFail = () => ({
+    type: actionTypes.FETCH_TOP_DOCTORS_FAIL
 });
