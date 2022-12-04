@@ -20,7 +20,7 @@ class FooterHome extends Component {
                             <div className='logo'>
                                 <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
                             </div>
-                            <div className='title-cl1'>Công ty Cổ phần Công nghệ BookingCare</div>
+                            <div className='title-cl1'><FormattedMessage id="homefooter.companyName" /></div>
                             <div> <i class="fas fa-map-marker-alt"></i> 28 Thành Thái, Dịch Vọng, Cầu Giấy, Hà Nội</div>
                             <div><i class="fas fa-check"></i> ĐKKD số: 0106790291. Sở KHĐT Hà Nội cấp ngày 16/03/2015</div>
                             <div>
@@ -29,28 +29,28 @@ class FooterHome extends Component {
                             </div>
                         </div>
                         <div className='colum2'>
-                            <div className='ul-li'>Liên hệ hợp tác</div>
-                            <div className='ul-li'>Gói chuyển đổi số doanh nghiệp</div>
-                            <div className='ul-li'>Tuyển dụng</div>
-                            <div className='ul-li'>Câu hỏi thường gặp</div>
-                            <div className='ul-li'>Điều khoản sử dụng</div>
-                            <div className='ul-li'>hính sách Bảo mật</div>
-                            <div className='ul-li'>Quy trình hỗ trợ giải quyết khiếu nại</div>
-                            <div className='ul-li'>Quy chế hoạt động</div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Contact-for-cooperation" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Enterprise-digital-transformation-package" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Recruit" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Frequently-asked-questions" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.terms-of-use" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Privacy-Policy" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Complaint-handling-support-process" /></div>
+                            <div className='ul-li'><FormattedMessage id="homefooter.Operational-Regulations" /></div>
                         </div>
                         <div className='colum3'>
-                            <div className='title-cl3'>Trụ sở tại Hà Nội</div>
+                            <div className='title-cl3'><FormattedMessage id="homefooter.Headquarters" /></div>
                             <div className='descpt'>28 Thành Thái, Dịch Vọng, Cầu Giấy, Hà Nội</div>
 
-                            <div className='title-cl3'>Văn phòng tại TP Hồ Chí Minh</div>
+                            <div className='title-cl3'><FormattedMessage id="homefooter.Office" /></div>
                             <div className='descpt'>Số 01, Hồ Bá Kiện, Phường 15, Quận 10</div>
 
-                            <div className='title-cl3'>Hỗ trợ khách hàng</div>
+                            <div className='title-cl3'><FormattedMessage id="homefooter.support" /></div>
                             <div className='descpt'>support@bookingcare.vn (7h30 - 18h)</div>
                         </div>
                     </div>
                     <div className='download'>
-                        <i class="fas fa-mobile-alt"></i> Tải ứng dụng BookingCare cho điện thoại hoặc máy tính bảng: <span className='linkdown'>Android</span>- <span className='linkdown'>iPhone/iPad</span>- <span className='linkdown'>Khác</span>
+                        <i class="fas fa-mobile-alt"></i> <FormattedMessage id="homefooter.download" /> <span className='linkdown'>Android</span>- <span className='linkdown'>iPhone/iPad</span>- <span className='linkdown'><FormattedMessage id="homefooter.other" /></span>
                     </div>
                 </div>
             </React.Fragment >

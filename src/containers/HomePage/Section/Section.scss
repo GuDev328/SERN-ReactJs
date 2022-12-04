@@ -67,6 +67,10 @@
             }
         }
 
+        .slick-disabled {
+            display: none !important;
+        }
+
         .slick-next::before {
             font-family: 'Glyphicons Halflings' !important;
             color: #959595 !important;

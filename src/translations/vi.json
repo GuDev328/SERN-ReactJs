@@ -42,6 +42,27 @@
         "medical-facility": "Cơ sở y tế nổi bật",
         "search": "Tìm kiếm"
     },
+    "homepage": {
+        "outStandingDoctor": "Bác sĩ nổi bật tuần qua",
+        "handbook": "Cẩm nang",
+        "allPosts": "Tất cả bài viết"
+    },
+    "homefooter": {
+        "companyName": "Công ty Cổ phần Công nghệ BookingCare",
+        "Contact-for-cooperation": "Liên hệ hợp tác",
+        "Enterprise-digital-transformation-package": "Gói chuyển đổi số doanh nghiệp",
+        "Recruit": "Tuyển dụng",
+        "Frequently-asked-questions": "Câu hỏi thường gặp",
+        "terms-of-use": "Điều khoản sử dụng",
+        "Privacy-Policy": "Chính sách Bảo mật",
+        "Complaint-handling-support-process": "Quy trình hỗ trợ giải quyết khiếu nại",
+        "Operational-Regulations": "Quy chế hoạt động",
+        "Headquarters": "Trụ sở tại Hà Nội",
+        "Office": "Văn phòng tại TP Hồ Chí Minh",
+        "support": "Hỗ trợ khách hàng",
+        "download": "Tải ứng dụng BookingCare cho điện thoại hoặc máy tính bảng:",
+        "other": "Khác"
+    },
     "menu": {
         "system": {
             "header": "Hệ thống",

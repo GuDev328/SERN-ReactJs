@@ -23,7 +23,7 @@ class MedicalFacility extends Component {
     render() {
         var settings = {
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 300,
             slidesToShow: 4,
             slidesToScroll: 1

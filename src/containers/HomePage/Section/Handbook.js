@@ -23,7 +23,7 @@ class DoctorWeek extends Component {
     render() {
         var settings = {
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 300,
             slidesToShow: 2,
             slidesToScroll: 1
@@ -32,8 +32,8 @@ class DoctorWeek extends Component {
             <React.Fragment>
                 <div className='section handbook'>
                     <div className='section-header'>
-                        <div className='section-title'>Cẩm nang</div>
-                        <div className='show-more'>Tất cả bài viết</div>
+                        <div className='section-title'><FormattedMessage id="homepage.handbook" /></div>
+                        <div className='show-more'><FormattedMessage id="homepage.allPosts" /></div>
                     </div>
                     <div className='section-content'>
                         <Slider {...settings}>
