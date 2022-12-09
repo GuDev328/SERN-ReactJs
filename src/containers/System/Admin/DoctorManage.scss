@@ -1,0 +1,30 @@
+.manage-doctor-container {
+    .select-texarea {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+
+        .select-doctor {
+            width: 30%;
+
+            .title-choose-doctor {
+                font-size: large;
+                font-weight: lighter;
+            }
+        }
+
+        .textarea {
+            width: 50%;
+
+            .intro-doctor {
+                font-size: large;
+                font-weight: lighter;
+            }
+
+            .textarea-doctor {
+                width: 100%;
+            }
+        }
+
+    }
+}

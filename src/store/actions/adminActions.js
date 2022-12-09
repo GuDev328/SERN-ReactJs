@@ -134,3 +134,29 @@ export const fetchTopDoctorsSuccess = (datatopDoctors) => ({
 export const fetchTopDoctorsFail = () => ({
     type: actionTypes.FETCH_TOP_DOCTORS_FAIL
 });
+
+export const fetchAllDoctorsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let resDoctor = await userService.getDoctors('ALL')
+            if (resDoctor && resDoctor.errCode === 0) {
+                resDoctor = resDoctor.doctor
+                dispatch(fetchAllDoctorsSuccess(resDoctor));
+            } else {
+                dispatch(fetchAllDoctorsFail());
+            }
+        } catch (error) {
+            dispatch(fetchTopDoctorsFail());
+            console.log("fetchAllDoctorsStart" + error)
+        }
+    }
+};
+
+export const fetchAllDoctorsSuccess = (dataDoctors) => ({
+    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+    data: dataDoctors
+});
+
+export const fetchAllDoctorsFail = () => ({
+    type: actionTypes.FETCH_ALL_DOCTORS_FAIL
+});

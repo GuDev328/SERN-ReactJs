@@ -30,6 +30,10 @@ const userService = {
 
     getTopDoctor: (limit) => {
         return axios.get(`/api/get-top-doctor?limit=${limit}`)
-    }
+    },
+
+    getDoctors: (inputId) => {
+        return axios.get(`/api/get-doctors?id=${inputId}`)
+    },
 }
 export default userService;
