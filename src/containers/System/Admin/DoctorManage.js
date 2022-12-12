@@ -13,31 +13,41 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
+import { result } from 'lodash';
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
 const mdParser = new MarkdownIt();
 class DoctorManage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            contenMarkdown: '',
+            contentMarkdown: '',
             contentHTMLMarkdown: '',
             selectedOption: null,
-            description: ''
+            description: '',
+            arrDoctors: []
         }
     }
     async componentDidMount() {
-
+        this.props.getDoctorsStart()
     }
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.doctors !== this.props.doctors) {
+            let listDoctors = this.arrDoctorToSelectOption(this.props.doctors)
+            this.setState({
+                arrDoctors: listDoctors,
+            })
+        }
+        if (prevProps.language !== this.props.language) {
+            let listDoctors = this.arrDoctorToSelectOption(this.props.doctors)
+            this.setState({
+                arrDoctors: listDoctors,
+            })
+        }
+    }
     handleEditorChange = ({ html, text }) => {
         this.setState({
-            contenMarkdown: text,
+            contentMarkdown: text,
             contentHTMLMarkdown: html
         });
     }
@@ -50,7 +60,32 @@ class DoctorManage extends Component {
         })
     }
     handleOnClickSaveChange = () => {
-        console.log(this.state)
+        this.props.saveInfoDoctor({
+            contentMarkdown: this.state.contentMarkdown,
+            contentHTML: this.state.contentHTMLMarkdown,
+            description: this.state.description,
+            doctorId: this.state.selectedOption.value,
+        })
+        this.setState({
+            description: '',
+            selectedOption: null,
+        })
+        alert("Saved Info Doctor")
+    }
+    arrDoctorToSelectOption = (arrDoctors) => {
+        let options = []
+        let { language } = this.props
+        if (arrDoctors && arrDoctors.length > 0) {
+            arrDoctors.map((item, index) => {
+                let object = {}
+                let labelVi = `${item.lastName} ${item.firstName}`
+                let labelEn = `${item.firstName} ${item.lastName}`
+                object.label = language == 'vi' ? labelVi : labelEn
+                object.value = item.id
+                options.push(object)
+            })
+        }
+        return options
     }
     render() {
         //const { selectedOption } = this.state;
@@ -64,7 +99,7 @@ class DoctorManage extends Component {
                         <Select
                             value={this.state.selectedOption}
                             onChange={this.handleChange}
-                            options={options}
+                            options={this.state.arrDoctors}
                         />
                     </div>
                     <div className='textarea'>
@@ -88,11 +123,14 @@ class DoctorManage extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        doctors: state.admin.doctors
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        saveInfoDoctor: (data) => dispatch(actions.saveInfoDoctorStart(data)),
+        getDoctorsStart: () => dispatch(actions.fetchAllDoctorsStart()),
     };
 };
 
