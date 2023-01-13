@@ -165,6 +165,7 @@ export const fetchAllDoctorsFail = () => ({
 export const saveInfoDoctorStart = (data) => {
     return async (dispatch, getState) => {
         try {
+            console.log(data)
             let res = await userService.saveInfoDoctor(data)
             if (res && res.errCode === 0) {
                 dispatch(saveInfoDoctorSuccess());
@@ -185,4 +186,30 @@ export const saveInfoDoctorSuccess = () => ({
 
 export const saveInfoDoctorFail = () => ({
     type: actionTypes.SAVE_INFO_DOCTOR_FAIL
+});
+
+export const fetchDetailDoctorsStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            let resDoctor = await userService.getDetailDoctor(doctorId)
+            if (resDoctor && resDoctor.errCode === 0) {
+                resDoctor = resDoctor.data
+                dispatch(fetchDetailDoctorsSuccess(resDoctor));
+            } else {
+                dispatch(fetchDetailDoctorsFail());
+            }
+        } catch (error) {
+            dispatch(fetchTopDoctorsFail());
+            console.log("fetchDetailDoctorsStart" + error)
+        }
+    }
+};
+
+export const fetchDetailDoctorsSuccess = (dataDoctors) => ({
+    type: actionTypes.FETCH_DETAIL_DOCTORS_SUCCESS,
+    data: dataDoctors
+});
+
+export const fetchDetailDoctorsFail = () => ({
+    type: actionTypes.FETCH_DETAIL_DOCTORS_FAIL
 });

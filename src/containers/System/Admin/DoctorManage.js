@@ -13,7 +13,6 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
-import { result } from 'lodash';
 
 const mdParser = new MarkdownIt();
 class DoctorManage extends Component {
@@ -25,7 +24,9 @@ class DoctorManage extends Component {
             contentHTMLMarkdown: '',
             selectedOption: null,
             description: '',
-            arrDoctors: []
+            arrDoctors: [],
+            markdownId: null,
+            hasOldData: false
         }
     }
     async componentDidMount() {
@@ -51,8 +52,29 @@ class DoctorManage extends Component {
             contentHTMLMarkdown: html
         });
     }
-    handleChange = (selectedOption) => {
+    handleChange = async (selectedOption) => {
         this.setState({ selectedOption });
+        let detailDoctor = await userService.getDetailDoctor(selectedOption.value)
+        console.log(detailDoctor)
+        if (detailDoctor && detailDoctor.errCode == 0 && detailDoctor.data && detailDoctor.data.Markdown && detailDoctor.data.Markdown.id) {
+            let markdown = detailDoctor.data.Markdown
+            this.setState({
+                markdownId: markdown.id,
+                contentMarkdown: markdown.contentMarkdown,
+                contentHTMLMarkdown: markdown.contentHTML,
+                description: markdown.description,
+                hasOldData: true
+            })
+        } else {
+            this.setState({
+                markdownId: null,
+                contentMarkdown: '',
+                contentHTMLMarkdown: '',
+                description: '',
+                hasOldData: false
+            })
+        }
+        console.log(this.state.hasOldData)
     };
     handleOnChangeDecs = (event) => {
         this.setState({
@@ -60,13 +82,20 @@ class DoctorManage extends Component {
         })
     }
     handleOnClickSaveChange = () => {
+        if (!this.state.selectedOption) {
+            alert("Please choose a doctor to edit!")
+            return
+        }
         this.props.saveInfoDoctor({
+            markdownId: this.state.markdownId,
             contentMarkdown: this.state.contentMarkdown,
             contentHTML: this.state.contentHTMLMarkdown,
             description: this.state.description,
             doctorId: this.state.selectedOption.value,
         })
         this.setState({
+            contentMarkdown: '',
+            contentHTMLMarkdown: '',
             description: '',
             selectedOption: null,
         })
@@ -89,6 +118,7 @@ class DoctorManage extends Component {
     }
     render() {
         //const { selectedOption } = this.state;
+        console.log(this.state.arrDoctors)
         return (
             <div className='manage-doctor-container'>
                 <Header />
@@ -110,7 +140,10 @@ class DoctorManage extends Component {
                     </div>
 
                 </div>
-                <MdEditor style={{ height: '500px', marginTop: '100px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChange} />
+                <MdEditor style={{ height: '500px', marginTop: '100px' }}
+                    renderHTML={text => mdParser.render(text)}
+                    onChange={this.handleEditorChange}
+                    value={this.state.contentMarkdown} />
                 <Button style={{ marginLeft: '50px', marginTop: '20px', backgroundColor: 'rgb(0 115 186)' }}
                     onClick={() => this.handleOnClickSaveChange()}
                 >Save Change</Button>

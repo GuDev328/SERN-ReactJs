@@ -37,6 +37,10 @@ const userService = {
     },
     saveInfoDoctor: (infoInput) => {
         return axios.post('/api/save-info-doctor', infoInput)
+    },
+
+    getDetailDoctor: (doctorId) => {
+        return axios.get(`/api/get-detail-doctors?id=${doctorId}`)
     }
 }
 export default userService;

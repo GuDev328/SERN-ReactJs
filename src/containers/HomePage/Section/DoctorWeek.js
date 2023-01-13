@@ -8,9 +8,9 @@ import { changeLanguageApp } from '../../../store/actions'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import avt from '../../../assets/imgrac.jpg'
 import * as actions from '../../../store/actions'
-
+import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 class DoctorWeek extends Component {
     constructor(props) {
@@ -19,7 +19,6 @@ class DoctorWeek extends Component {
             arrTopDoctors: [],
         }
     }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.topDoctors !== this.props.topDoctors) {
             this.setState({
@@ -35,7 +34,9 @@ class DoctorWeek extends Component {
     componentDidMount() {
         this.props.loadTopDoctors()
     }
-
+    handleViewDetailDoctor = (id) => {
+        this.props.history.push(`/doctor/${id}`)
+    }
 
     render() {
         let topDoctors = this.state.arrTopDoctors
@@ -64,7 +65,7 @@ class DoctorWeek extends Component {
                                     let doctorNameVi = item.lastName + ' ' + item.firstName;
                                     let doctorNameEn = item.firstName + ' ' + item.lastName;
                                     return (
-                                        <div className='div-section'>
+                                        <div className='div-section' onClick={() => this.handleViewDetailDoctor(item.id)}>
                                             <img className='img-cus' src={imgBase64} />
                                             <p className='img-title'>{this.props.language == languages.VI ? item.positionData.valueVi + ', ' + doctorNameVi : item.positionData.valueEn + ', ' + doctorNameEn} </p>
                                             <p className='speciality-of-doctor'>Sức khoẻ tâm thần</p>
@@ -97,4 +98,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorWeek);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DoctorWeek));
