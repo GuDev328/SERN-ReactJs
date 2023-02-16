@@ -3,6 +3,7 @@
         display: flex;
         justify-content: space-around;
         margin-top: 30px;
+        margin-bottom: 20px;
 
         .select-doctor {
             width: 30%;
@@ -24,6 +25,44 @@
             .textarea-doctor {
                 width: 100%;
             }
+        }
+
+    }
+
+    .select-info {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 70px;
+
+        .price {
+            width: 30%;
+        }
+
+        .payment {
+            width: 30%;
+        }
+
+        .province {
+            width: 30%;
+        }
+
+    }
+
+    .add-info {
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 70px;
+
+        .name-clinic {
+            width: 30%;
+        }
+
+        .address-clinic {
+            width: 30%;
+        }
+
+        .note {
+            width: 30%;
         }
 
     }

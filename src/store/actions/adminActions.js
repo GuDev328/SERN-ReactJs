@@ -239,3 +239,81 @@ export const fetchTimeSuccess = (timeData) => ({
 export const fetchTimeFail = () => ({
     type: actionTypes.FETCH_TIME_FAIL
 });
+
+export const fetchPriceStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            let res = await userService.getAllCodeService("Price");
+            if (res && res.errCode === 0) {
+                dispatch(fetchPriceSuccess(res.data));
+            } else {
+                dispatch(fetchPriceFail());
+            }
+        } catch (error) {
+            dispatch(fetchPriceFail());
+            console.log("fetchPriceStart" + error)
+        }
+    }
+};
+
+export const fetchPriceSuccess = (priceData) => ({
+    type: actionTypes.FETCH_PRICE_SUCCESS,
+    data: priceData
+});
+
+export const fetchPriceFail = () => ({
+    type: actionTypes.FETCH_PRICE_FAIL
+});
+
+export const fetchPaymentStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            let res = await userService.getAllCodeService("Payment");
+            if (res && res.errCode === 0) {
+                dispatch(fetchPaymentSuccess(res.data));
+            } else {
+                dispatch(fetchPaymentFail());
+            }
+        } catch (error) {
+            dispatch(fetchPaymentFail());
+            console.log("fetchPaymentStart" + error)
+        }
+    }
+};
+
+export const fetchPaymentSuccess = (paymentData) => ({
+    type: actionTypes.FETCH_PAYMENT_SUCCESS,
+    data: paymentData
+});
+
+export const fetchPaymentFail = () => ({
+    type: actionTypes.FETCH_PAYMENT_FAIL
+});
+
+export const fetchProvinceStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            let res = await userService.getAllCodeService("Province");
+            if (res && res.errCode === 0) {
+                dispatch(fetchProvinceSuccess(res.data));
+            } else {
+                dispatch(fetchProvinceFail());
+            }
+        } catch (error) {
+            dispatch(fetchProvinceFail());
+            console.log("fetchProvinceStart" + error)
+        }
+    }
+};
+
+export const fetchProvinceSuccess = (provinceData) => ({
+    type: actionTypes.FETCH_PROVINCE_SUCCESS,
+    data: provinceData
+});
+
+export const fetchProvinceFail = () => ({
+    type: actionTypes.FETCH_PROVINCE_FAIL
+});
