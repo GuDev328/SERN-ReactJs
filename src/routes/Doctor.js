@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserManage from '../containers/System/UserManage';
-import UserManageRedux from '../containers/System/Admin/UserManageRedux';
-import DoctorManage from '../containers/System/Admin/DoctorManage';
 import ManageSchedule from '../containers/Patient/Doctor/ManageSchedule'
+
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
@@ -12,9 +10,6 @@ class System extends Component {
             <div className="system-container">
                 <div className="system-list">
                     <Switch>
-                        <Route path="/system/user-manage" component={UserManage} />
-                        <Route path="/system/user-manage-redux" component={UserManageRedux} />
-                        <Route path="/system/doctor-manage" component={DoctorManage} />
                         <Route path="/doctor/manage-schedule" component={ManageSchedule} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>

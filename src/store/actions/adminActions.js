@@ -213,3 +213,29 @@ export const fetchDetailDoctorsSuccess = (dataDoctors) => ({
 export const fetchDetailDoctorsFail = () => ({
     type: actionTypes.FETCH_DETAIL_DOCTORS_FAIL
 });
+
+export const fetchTimeStart = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            let res = await userService.getAllCodeService("Time");
+            if (res && res.errCode === 0) {
+                dispatch(fetchTimeSuccess(res.data));
+            } else {
+                dispatch(fetchTimeFail());
+            }
+        } catch (error) {
+            dispatch(fetchTimeFail());
+            console.log("fetchTimeStart" + error)
+        }
+    }
+};
+
+export const fetchTimeSuccess = (timeData) => ({
+    type: actionTypes.FETCH_TIME_SUCCESS,
+    data: timeData
+});
+
+export const fetchTimeFail = () => ({
+    type: actionTypes.FETCH_TIME_FAIL
+});

@@ -1,0 +1,37 @@
+.doctor-schedule-container {
+    .choose-date {
+        .date-select {
+            //width: 150px;
+            padding: 3px 0px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #337ab7;
+            border: none;
+            border-bottom: 1px solid #999999;
+
+            .date {}
+        }
+    }
+
+    .content-date {
+        margin: 20px 0px;
+        font-size: 16px;
+        font-weight: bold;
+
+
+    }
+
+    .time {
+        .btn-time {
+            margin: 5px;
+            background-color: #fff04b;
+            border: #fff04b solid 2px;
+            font-weight: bold;
+        }
+
+        .btn-time:hover {
+            border: #45c3d2 solid 2px;
+        }
+
+    }
+}

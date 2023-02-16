@@ -88,6 +88,10 @@
             "specialty": "Specialty",
             "manage-handbook": "Manage Handbook",
             "handbook": "Handbook"
+        },
+        "doctor": {
+            "manage-schedule": "Manage Schedule",
+            "schedule": "Manage Doctor Schedule"
         }
     }
 }

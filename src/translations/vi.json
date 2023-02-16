@@ -88,6 +88,10 @@
             "specialty": "Chuyên khoa",
             "manage-handbook": "Quản lý Cẩm nang",
             "handbook": "Cẩm nang"
+        },
+        "doctor": {
+            "manage-schedule": "Quản lí kế hoạch",
+            "schedule": "Quản lí kế hoạch bác sĩ"
         }
     }
 }

@@ -67,12 +67,19 @@ class Login extends Component {
             isShowPassword: !this.state.isShowPassword
         })
     }
+
+    handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.handleOnClickLogin()
+        }
+    }
+
     render() {
         //JSX
         return (
             <div className='login-background'>
                 <div className='login-container'>
-                    <div className='login-content'>
+                    <div className='login-content' onKeyPress={(event) => this.handleKeyPress(event)}>
                         <div className='col-12 text-center text-login' >Login</div>
                         <div className='col-12 form-group'>
                             <label className='text-username'>UserName</label>

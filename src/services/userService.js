@@ -41,6 +41,12 @@ const userService = {
 
     getDetailDoctor: (doctorId) => {
         return axios.get(`/api/get-detail-doctors?id=${doctorId}`)
+    },
+    saveSchedule: (data) => {
+        return axios.post('/api/save-schedule', data)
+    },
+    getSchedule: (doctorId, date) => {
+        return axios.get(`/api/get-schedule?doctorId=${doctorId}&date=${date}`)
     }
 }
 export default userService;

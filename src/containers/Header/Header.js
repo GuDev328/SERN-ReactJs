@@ -7,13 +7,37 @@ import { changeLanguageApp } from '../../store/actions'
 import { FormattedMessage } from 'react-intl'
 import Navigator from '../../components/Navigator';
 import { adminMenu } from './menuApp';
+import { doctorMenu } from './menuApp';
 import './Header.scss';
 
 class Header extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            menuApp: []
+        }
+    }
 
     handleChangeLanguage = (lang) => {
         this.props.changeLanguageAppRedux(lang)
     }
+
+    componentDidMount() {
+        if (this.props.userInfo) {
+            let role = this.props.userInfo.roleId
+            if (role === 'R1') {
+                this.setState({
+                    menuApp: adminMenu
+                })
+            }
+            if (role === 'R2') {
+                this.setState({
+                    menuApp: doctorMenu
+                })
+            }
+        }
+    }
+
     render() {
         const { processLogout } = this.props;
         return (
@@ -21,7 +45,7 @@ class Header extends Component {
             <div className="header-container">
                 {/* thanh navigator */}
                 <div className="header-tabs-container">
-                    <Navigator menus={adminMenu} />
+                    <Navigator menus={this.state.menuApp} />
                 </div>
 
                 <div className='right'>

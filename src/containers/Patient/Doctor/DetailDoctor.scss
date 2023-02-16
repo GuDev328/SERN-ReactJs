@@ -35,7 +35,7 @@
 }
 
 .infoDoctor {
-    margin: 80px 100px;
+    margin: 80px 100px 25px 100px;
     display: flex;
 
     .avt {
@@ -60,6 +60,22 @@
             color: #555;
             font-size: 13px;
         }
+    }
+}
+
+.doctor-schedule {
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 25px;
+    height: 270px;
+    display: flex;
+
+    .doctor-schedule-left {
+        width: 50%;
+        margin-left: 100px;
+    }
+
+    .doctor-schedule-right {
+        width: 50%;
     }
 }
 

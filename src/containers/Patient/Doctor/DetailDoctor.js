@@ -6,6 +6,7 @@ import FooterHome from '../../HomePage/FooterHome';
 import { languages, CommonUtils } from '../../../utils';
 import { FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router';
+import DoctorSchedule from './DoctorSchedule';
 
 class DetailDoctor extends Component {
 
@@ -27,8 +28,6 @@ class DetailDoctor extends Component {
         let titleDoctor = 'loading...'
         let descriptionDoctor = 'loading...'
         let contentHTML = 'loading...'
-        console.log(detailDoctor)
-        console.log(this.props.language)
         if (detailDoctor.positionData) {
             if (this.props.language === 'vi') {
                 titleDoctor = detailDoctor.positionData.valueVi + ' ' +
@@ -44,9 +43,9 @@ class DetailDoctor extends Component {
             descriptionDoctor = detailDoctor.Markdown.description
             contentHTML = detailDoctor.Markdown.contentHTML
         }
-
         return (
-            <div>
+
+            < div >
                 <div className='header'>
                     <div className='header-left' onClick={() => this.props.history.goBack()}><i className="arrow-back fa fa-arrow-left"></i></div>
                     <div className='header-right'>
@@ -67,6 +66,15 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                 </div>
+                <div className='doctor-schedule'>
+                    <div className='doctor-schedule-left'>
+                        <DoctorSchedule doctorId={this.props.match.params.id} />
+                    </div>
+                    <div className='doctor-schedule-right'>
+
+                    </div>
+                </div>
+
                 <div className='detail' dangerouslySetInnerHTML={{ __html: `${contentHTML}` }} />;
                 <FooterHome />
             </div >

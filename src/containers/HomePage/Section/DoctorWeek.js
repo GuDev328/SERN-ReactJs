@@ -35,7 +35,7 @@ class DoctorWeek extends Component {
         this.props.loadTopDoctors()
     }
     handleViewDetailDoctor = (id) => {
-        this.props.history.push(`/doctor/${id}`)
+        this.props.history.push(`/detail-doctor/${id}`)
     }
 
     render() {
