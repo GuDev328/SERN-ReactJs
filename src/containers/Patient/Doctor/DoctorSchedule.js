@@ -10,7 +10,7 @@ import { languages, CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions'
 import moment from 'moment'
 import localization from 'moment/locale/vi'
-
+import { Link } from 'react-router-dom';
 class DoctorSchedule extends Component {
 
     constructor(props) {
@@ -93,7 +93,9 @@ class DoctorSchedule extends Component {
                     {arrTime && arrTime.length > 0 &&
                         arrTime.map((item, index) => {
                             let time = this.props.language === 'vi' ? item.timeData.valueVi : item.timeData.valueEn
-                            return <div className='btn btn-time'>{time}</div>
+                            return <Link to={{ pathname: '/booking', state: { item } }}>
+                                <div className='btn btn-time'>{time}</div>
+                            </Link>
                         })
 
                     }

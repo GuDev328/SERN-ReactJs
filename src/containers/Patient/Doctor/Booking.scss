@@ -1,0 +1,116 @@
+.booking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .booking-container {
+        width: 670px;
+
+        .doctor {
+            display: flex;
+            padding: 10px 0px;
+
+            .avt {
+                .img-cus {
+                    object-fit: cover;
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                }
+            }
+
+            .doctor-content {
+                .text-booking {
+                    text-transform: uppercase;
+                    color: #555;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+
+                .title-doctor {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #337ab7;
+                }
+            }
+        }
+
+        .inputInfo {
+            color: #333;
+
+            .row-user {
+                display: flex;
+                justify-content: space-between;
+
+                .name {
+                    width: 75%;
+                }
+
+                .gender {
+                    width: 20%;
+                }
+            }
+
+            .icon {
+                margin-top: 10px;
+                margin-right: 5px;
+                font-size: 16px;
+            }
+
+            .name-titl {
+                font-size: 16px;
+            }
+        }
+
+        .payment {
+            margin-top: 20px;
+
+            .text-payment {
+                font-size: 15px;
+                font-weight: bold;
+                color: #007eb9;
+            }
+
+            .text-payment2 {
+                font-size: 16px;
+
+            }
+        }
+
+        .backgr-cost {
+            background-color: #f6f6f6;
+            border-radius: 5px;
+
+            .cost-block {
+                padding: 20px;
+                font-size: 16px;
+
+                .cost {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .cost-total {
+                        font-weight: bold;
+                        color: red;
+                    }
+                }
+            }
+        }
+
+        .note {
+            text-align: center;
+            color: #666;
+        }
+
+        .btn-cus {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            background-color: #ffc419;
+            padding: 5px;
+        }
+    }
+}

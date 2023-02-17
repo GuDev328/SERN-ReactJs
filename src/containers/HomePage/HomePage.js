@@ -7,12 +7,15 @@ import MedicalFacility from './Section/MedicalFacility'
 import DoctorWeek from './Section/DoctorWeek';
 import Handbook from './Section/Handbook';
 import FooterHome from './FooterHome';
+import HomeBanner from './HomeBanner';
+
 class HomePage extends Component {
 
     render() {
         return (
             <div>
                 <HeaderHome />
+                <HomeBanner />
                 <Specialty />
                 <MedicalFacility />
                 <DoctorWeek />

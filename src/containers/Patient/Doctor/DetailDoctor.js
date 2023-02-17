@@ -7,7 +7,7 @@ import { languages, CommonUtils } from '../../../utils';
 import { FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router';
 import DoctorSchedule from './DoctorSchedule';
-
+import DoctorClinic from './DoctorClinic';
 class DetailDoctor extends Component {
 
     constructor(props) {
@@ -19,7 +19,6 @@ class DetailDoctor extends Component {
     }
 
     async componentDidMount() {
-        window.scrollTo({ top: 0, left: 0 })
         this.props.getDetailDoctor(this.props.match.params.id)
     }
 
@@ -71,7 +70,7 @@ class DetailDoctor extends Component {
                         <DoctorSchedule doctorId={this.props.match.params.id} />
                     </div>
                     <div className='doctor-schedule-right'>
-
+                        <DoctorClinic doctorId={this.props.match.params.id} />
                     </div>
                 </div>
 

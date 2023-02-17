@@ -1,0 +1,72 @@
+.doctor-clinic-container {
+    margin: 40px 0px 20px 30px;
+
+    .addtitl {
+        color: #666;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .clinic-name {
+        margin: 5px 0px;
+        font-weight: bold;
+    }
+
+    .cost {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+
+        .price {
+            font-size: 16px;
+            margin: 0px 5px;
+        }
+
+        .show-detail {
+            font-size: 16px;
+            color: #7bcbd8;
+            cursor: pointer;
+        }
+    }
+
+    .detail {
+        margin: 0px;
+        width: 430px;
+
+        .tit-price {
+            display: flex;
+            justify-content: space-between;
+            border: #ddd solid 1px;
+            border-bottom: none;
+
+            .left {
+                font-size: 15px;
+            }
+
+            .right {
+                font-size: 16px;
+            }
+        }
+
+        .des {
+            border-left: #ddd solid 1px;
+            border-right: #ddd solid 1px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .des-pay {
+            border: #ddd solid 1px;
+            padding: 10px 0px;
+            background-color: #eee;
+        }
+
+        .hide-detail {
+            font-size: 16px;
+            color: #7bcbd8;
+            cursor: pointer;
+        }
+    }
+
+}

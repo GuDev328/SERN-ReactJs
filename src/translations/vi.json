@@ -93,5 +93,32 @@
             "manage-schedule": "Quản lí kế hoạch",
             "schedule": "Quản lí kế hoạch bác sĩ"
         }
+    },
+    "doctorClinic": {
+        "address": "ĐỊA CHỈ PHÒNG KHÁM",
+        "cost": "Giá khám: ",
+        "showDetail": "Xem chi tiết",
+        "des": "Được ưu tiên khám trước khi đặt khám qua BookingCare. Giá khám cho người nước ngoài là ",
+        "despay": "Người bệnh có thể thanh toán chi phí bằng  "
+    },
+    "booking": {
+        "bookingappointment": "Đặt lịch khám",
+        "name": "Họ tên",
+        "gender": "Giới tính",
+        "phoneNumber": "Số điện thoại",
+        "dob": "Ngày sinh",
+        "male": "Nam",
+        "female": "Nữ",
+        "address": "Địa chỉ",
+        "reason": "Lý do khám",
+        "free": "Miễn phí",
+        "payment": "Hình thức thanh toán",
+        "wherepayment": "Thanh toán sau tại cơ sở y tế",
+        "cost": "Giá khám",
+        "bookingfee": "Phí đặt lịch",
+        "total": "Tổng cộng",
+        "note1": "Quý khách vui lòng điền đầy đủ thông tin để tiết kiệm thời gian làm thủ tục khám",
+        "note2": "Bằng việc xác nhận đặt khám, bạn đã hoàn toàn đồng ý với Điều khoản sử dụng dịch vụ của chúng tôi.",
+        "confirm": "Xác nhận lịch khám"
     }
 }

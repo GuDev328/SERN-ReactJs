@@ -93,5 +93,32 @@
             "manage-schedule": "Manage Schedule",
             "schedule": "Manage Doctor Schedule"
         }
+    },
+    "doctorClinic": {
+        "address": "ADDRESS CLINIC",
+        "cost": "Cost : ",
+        "showDetail": "Show detail",
+        "des": "Get priority medical care before visiting through BookingCare. The cost of medical examination for foreigners is",
+        "despay": "Patients can pay by "
+    },
+    "booking": {
+        "bookingappointment": "Booking appointment",
+        "name": "Full name",
+        "gender": "Gender",
+        "phoneNumber": "Phone Number",
+        "dob": "Birthday",
+        "male": "Male",
+        "female": "Female",
+        "address": "Address",
+        "reason": "Medical examination reason",
+        "payment": "Payment method",
+        "wherepayment": "Pay later at a medical facility",
+        "cost": "Cost",
+        "bookingfee": "Booking fee",
+        "free": "Free",
+        "total": "Total",
+        "note1": "Please fill in the information completely to save time for examination procedures",
+        "note2": "By confirming your booking, you fully agree to our Terms of Service",
+        "confirm": "Confirm appointment"
     }
 }
