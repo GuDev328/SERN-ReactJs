@@ -47,6 +47,9 @@ const userService = {
     },
     getSchedule: (doctorId, date) => {
         return axios.get(`/api/get-schedule?doctorId=${doctorId}&date=${date}`)
+    },
+    bookingAppointment: (data) => {
+        return axios.post('/api/booking-appointment', data)
     }
 }
 export default userService;

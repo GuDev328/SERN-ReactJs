@@ -120,5 +120,15 @@
         "note1": "Please fill in the information completely to save time for examination procedures",
         "note2": "By confirming your booking, you fully agree to our Terms of Service",
         "confirm": "Confirm appointment"
+    },
+    "login": {
+        "login": "Login",
+        "email": "Email",
+        "inputemail": "Input your email",
+        "password": "Password",
+        "inputpassword": "Input your password",
+        "forgotpassword": "Forgot password?",
+        "register": "Register",
+        "orlogin": "Or login with"
     }
 }

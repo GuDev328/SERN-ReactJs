@@ -7,11 +7,16 @@ import './Login.scss';
 import { FormattedMessage } from 'react-intl';
 import { divide } from 'lodash';
 import { userService } from '../../services'
+import ModalUser from '../System/ModalUser';
+
+import { emitter } from '../../utils/emitter'
+import HeaderHome from '../HomePage/HeaderHome'
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isOpenModalUser: false,
             email: '',
             password: '',
             isShowPassword: false,
@@ -19,6 +24,34 @@ class Login extends Component {
         }
     }
 
+    handleOnClickHandleRegister = () => {
+        this.setState({
+            isOpenModalUser: true
+        })
+    }
+    toggleUser = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser
+        })
+    }
+    createANewUser = async (dataUser) => {
+        try {
+            let response = await userService.createANewUser(dataUser)
+            if (response && response.errCode != 0) {
+                alert(response.message)
+            }
+            if (response && response.errCode == 0) {
+                alert('Đăng kí thành công! Mời bạn đăng nhập')
+                this.setState({
+                    isOpenModalUser: false
+                })
+            }
+            emitter.emit('EVENT_CLEAR_MODAL_DATA')
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
     handleOnChangeEmailInput = (event) => {
         this.setState({
             email: event.target.value
@@ -77,46 +110,57 @@ class Login extends Component {
     render() {
         //JSX
         return (
-            <div className='login-background'>
-                <div className='login-container'>
-                    <div className='login-content' onKeyPress={(event) => this.handleKeyPress(event)}>
-                        <div className='col-12 text-center text-login' >Login</div>
-                        <div className='col-12 form-group'>
-                            <label className='text-username'>UserName</label>
-                            <input className='form-control login-input'
-                                type='text'
-                                placeholder='Input Your Email'
-                                value={this.state.email}
-                                onChange={(event) => this.handleOnChangeEmailInput(event)}
-                            />
-                            <label className='text-password'>PassWord</label>
-                            <div className='inputpassword'>
+            <div>
+                <HeaderHome />
+                <div className='login-background'>
+
+                    <ModalUser
+                        isHideRole={true}
+                        isOpen={this.state.isOpenModalUser}
+                        toggle={this.toggleUser}
+                        createANewUser={this.createANewUser} />
+                    <div className='login-container'>
+                        <div className='login-content' onKeyPress={(event) => this.handleKeyPress(event)}>
+                            <div className='col-12 text-center text-login' ><FormattedMessage id='login.login' /></div>
+                            <div className='col-12 form-group'>
+                                <label className='text-username'><FormattedMessage id='login.email' /></label>
                                 <input className='form-control login-input'
-                                    type={this.state.isShowPassword ? 'text' : 'password'}
-                                    placeholder='Input Your password'
-                                    value={this.state.password}
-                                    onChange={(event) => this.handleOnChangePasswordInput(event)}
+                                    type='text'
+                                    placeholder='Input Your Email'
+                                    value={this.state.email}
+                                    onChange={(event) => this.handleOnChangeEmailInput(event)}
                                 />
-                                <div
-                                    onClick={() => this.handleShowHidePassword()}
-                                ><i class={this.state.isShowPassword ? 'fas fa-eye-slash eye' : 'fas fa-eye eye'}></i></div>
+                                <label className='text-password'><FormattedMessage id='login.password' /></label>
+                                <div className='inputpassword'>
+                                    <input className='form-control login-input'
+                                        type={this.state.isShowPassword ? 'text' : 'password'}
+                                        placeholder='Input Your password'
+                                        value={this.state.password}
+                                        onChange={(event) => this.handleOnChangePasswordInput(event)}
+                                    />
+                                    <div
+                                        onClick={() => this.handleShowHidePassword()}
+                                    ><i class={this.state.isShowPassword ? 'fas fa-eye-slash eye' : 'fas fa-eye eye'}></i></div>
 
+                                </div>
+                                <div className='col-12 errMessage'>{this.state.errMessage}</div>
+                                <span className='forgot-password'><FormattedMessage id='login.forgotpassword' /></span>
+                                <span className='register'
+                                    onClick={this.handleOnClickHandleRegister}><FormattedMessage id='login.register' /></span>
+                                <button className='btn-login'
+                                    onClick={(event) => this.handleOnClickLogin(event)}
+                                >Login</button>
                             </div>
-                            <div className='col-12 errMessage'>{this.state.errMessage}</div>
-                            <div className='forgot-password'>Forgot password?</div>
-                            <button className='btn-login'
-                                onClick={(event) => this.handleOnClickLogin(event)}
-                            >Login</button>
-                        </div>
 
-                        <div className='text-center text-otherlogin'>Or Login With:</div>
-                        <div className='text-center mt-3'>
-                            <i className="fab fa-google google-icon"></i>
-                            <i className="fab fa-facebook facebook-icon"></i>
+                            <div className='text-center text-otherlogin'><FormattedMessage id='login.orlogin' /></div>
+
+                            <div className='text-center mt-3'>
+                                <i className="fab fa-google google-icon"></i>
+                                <i className="fab fa-facebook facebook-icon"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

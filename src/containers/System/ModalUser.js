@@ -37,6 +37,11 @@ class ModalUser extends Component {
     }
 
     componentDidMount() {
+        if (this.props.isHideRole) {
+            this.setState({
+                roleId: 'R3'
+            })
+        }
     }
 
     toggle = () => {
@@ -70,13 +75,14 @@ class ModalUser extends Component {
         }
     }
     render() {
+
         return (
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => this.toggle()}
                 size='lg'
                 className={'abc'}>
-                <ModalHeader toggle={() => this.toggle()}>Create a new user</ModalHeader>
+                <ModalHeader toggle={() => this.toggle()}>Register a new user</ModalHeader>
                 <ModalBody>
 
                     <div className="container">
@@ -119,7 +125,7 @@ class ModalUser extends Component {
                             </div>
                             <div className="form-group col-3">
                                 <label for="">Role</label>
-                                <select onChange={(event) => this.handleOnChangeInput(event, 'roleId')} value={this.state.roleId} name="roleId" className="form-control">
+                                <select disabled={this.props.isHideRole} onChange={(event) => this.handleOnChangeInput(event, 'roleId')} value={this.state.roleId} name="roleId" className="form-control">
                                     <option selected value="">-Choose-</option>
                                     <option value="R3">Patient</option>
                                     <option value="R2">Doctor</option>
@@ -131,7 +137,7 @@ class ModalUser extends Component {
 
                 </ModalBody>
                 <ModalFooter>
-                    <Button className='px-3' color="primary" onClick={() => this.handleAddANewUser()}>Add New</Button>{' '}
+                    <Button className='px-3' color="primary" onClick={() => this.handleAddANewUser()}>Register</Button>{' '}
                     <Button className='px-3' color="secondary" onClick={() => this.toggle()}>Cancel</Button>
                 </ModalFooter>
             </Modal>

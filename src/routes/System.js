@@ -5,19 +5,25 @@ import UserManage from '../containers/System/UserManage';
 import UserManageRedux from '../containers/System/Admin/UserManageRedux';
 import DoctorManage from '../containers/System/Admin/DoctorManage';
 import ManageSchedule from '../containers/Patient/Doctor/ManageSchedule'
+import Home from '../routes/Home';
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
         return (
             <div className="system-container">
                 <div className="system-list">
-                    <Switch>
-                        <Route path="/system/user-manage" component={UserManage} />
-                        <Route path="/system/user-manage-redux" component={UserManageRedux} />
-                        <Route path="/system/doctor-manage" component={DoctorManage} />
-                        <Route path="/doctor/manage-schedule" component={ManageSchedule} />
-                        <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
-                    </Switch>
+                    {this.props.userInfo && this.props.userInfo.roleId === 'R1' &&
+                        <Switch>
+                            <Route path="/system/user-manage" component={UserManage} />
+                            <Route path="/system/user-manage-redux" component={UserManageRedux} />
+                            <Route path="/system/doctor-manage" component={DoctorManage} />
+                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+                        </Switch>
+                    }
+                    {this.props.userInfo && this.props.userInfo.roleId === 'R3' &&
+
+                        <Route exact component={(Home)} />
+                    }
                 </div>
             </div>
         );
@@ -26,7 +32,8 @@ class System extends Component {
 
 const mapStateToProps = state => {
     return {
-        systemMenuPath: state.app.systemMenuPath
+        systemMenuPath: state.app.systemMenuPath,
+        userInfo: state.user.userInfo
     };
 };
 

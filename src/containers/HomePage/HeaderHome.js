@@ -4,7 +4,7 @@ import './HeaderHome.scss'
 import { FormattedMessage } from 'react-intl'
 import { languages } from '../../utils'
 import { changeLanguageApp } from '../../store/actions'
-
+import * as actions from "../../store/actions";
 class HeaderHome extends Component {
 
     handleChangeLanguage = (lang) => {
@@ -50,7 +50,14 @@ class HeaderHome extends Component {
                             <div className='language'>
                                 <div className={this.props.language === languages.VI ? 'lang-vi action' : 'lang-vi'} ><span onClick={() => this.handleChangeLanguage(languages.VI)}>VI</span></div>
                                 <div className={this.props.language === languages.EN ? 'lang-en action' : 'lang-en'}><span onClick={() => this.handleChangeLanguage(languages.EN)}>EN</span></div>
+
+
                             </div>
+                            {this.props.isLoggedIn &&
+                                <div className="btn btn-logout" onClick={this.props.processLogout} title="Logout">
+                                    <i className="fas fa-sign-out-alt"></i>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div >
@@ -125,7 +132,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang))
+        changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang)),
+        processLogout: () => dispatch(actions.processLogout()),
     };
 };
 

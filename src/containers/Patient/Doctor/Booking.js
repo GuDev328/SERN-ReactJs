@@ -12,7 +12,8 @@ import HeaderHome from '../../HomePage/HeaderHome';
 import FooterHome from '../../HomePage/FooterHome'
 import moment from 'moment';
 import Select from 'react-select';
-
+import ModalAskLogin from '../../System/ModalAskLogin';
+import { withRouter } from 'react-router';
 class Booking extends Component {
 
     constructor(props) {
@@ -20,7 +21,13 @@ class Booking extends Component {
         this.state = {
             data: this.props.location.state.item,
             arrGender: [],
-            selectedGender: null
+            selectedGender: null,
+            fullName: '',
+            phoneNumber: '',
+            dob: '',
+            address: '',
+            reason: '',
+            isOpenAskLogin: false
         }
     }
 
@@ -54,17 +61,69 @@ class Booking extends Component {
             })
         }
         if (prevProps.language !== this.props.language) {
-            let listGender = this.arrDoctorToSelectOption(this.props.gender)
+            let listGender = this.arrToSelectOption(this.props.genders)
             this.setState({
                 arrGender: listGender,
             })
         }
     }
+    toggleAsk = () => {
+        this.setState({
+            isOpenAskLogin: !this.state.isOpenAskLogin
+        })
+    }
     handleChangeGender = (selectedGender) => {
         this.setState({ selectedGender })
     }
-
-
+    handleChangeName = (event) => {
+        this.setState({ fullName: event.target.value })
+    }
+    handleChangePhoneNumber = (event) => {
+        this.setState({ phoneNumber: event.target.value })
+    }
+    handleChangeDOB = (event) => {
+        this.setState({ dob: event.target.value })
+    }
+    handleChangeAddress = (event) => {
+        this.setState({ address: event.target.value })
+    }
+    handleChangeReason = (event) => {
+        this.setState({ reason: event.target.value })
+    }
+    dataValidation = () => {
+        if (!this.state.data || !this.state.selectedGender || !this.state.fullName
+            || !this.state.phoneNumber || !this.state.dob || !this.state.address || !this.state.reason) {
+            alert("Vui lòng nhập đầy đủ các thông tin")
+            return false
+        } else {
+            return true
+        }
+    }
+    handleOnClickConfirm = async () => {
+        if (!this.props.isLoggedIn) {
+            this.setState({ isOpenAskLogin: true })
+            //this.props.history.push(`/login`)
+        } else {
+            if (this.dataValidation()) {
+                let data = {
+                    doctorId: this.state.data.doctorId,
+                    patientId: this.props.userInfo.id,
+                    timeType: this.state.data.timeType,
+                    timeData: this.state.data.timeData,
+                    date: this.state.data.date,
+                    patientPhoneNumber: this.state.phoneNumber,
+                    patientName: this.state.fullName,
+                    patientGender: this.state.selectedGender.value,
+                    patientDob: this.state.dob,
+                    patientAddress: this.state.address,
+                    patientReason: this.state.reason,
+                    language: this.props.language
+                }
+                let response = await userService.bookingAppointment(data)
+                alert(response.errMessage)
+            }
+        }
+    }
     render() {
         let detailDoctor = this.props.detailDoctor
         let priceVi = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueVi : ''
@@ -88,6 +147,8 @@ class Booking extends Component {
         return (
             <div>
                 <HeaderHome />
+                <ModalAskLogin isOpen={this.state.isOpenAskLogin}
+                    toggle={this.toggleAsk} />
                 <div className='booking'>
                     <div className='booking-container'>
                         <div className='doctor'>
@@ -105,7 +166,9 @@ class Booking extends Component {
                                 <div className='name'>
                                     <i class="icon fas fa-user"></i>
                                     <span className='name-titl'><FormattedMessage id='booking.name' /></span>
-                                    <input type='text' className=' form-control' ></input>
+                                    <input type='text' className=' form-control'
+                                        value={this.state.fullName}
+                                        onChange={(event) => this.handleChangeName(event)} ></input>
                                 </div>
                                 <div className='gender'>
                                     <i class="icon fas fa-venus-mars"></i>
@@ -120,19 +183,27 @@ class Booking extends Component {
 
                             <i class="icon fas fa-phone-square"></i>
                             <span className='name-titl'><FormattedMessage id='booking.phoneNumber' /></span>
-                            <input type='text' className=' form-control' ></input>
+                            <input type='text' className=' form-control'
+                                value={this.state.phoneNumber}
+                                onChange={(event) => this.handleChangePhoneNumber(event)}></input>
 
                             <i class="icon fas fa-calendar-alt"></i>
                             <span className='name-titl'><FormattedMessage id='booking.dob' /></span>
-                            <input type='date' className=' form-control' ></input>
+                            <input type='date' className=' form-control'
+                                value={this.state.date}
+                                onChange={(event) => this.handleChangeDOB(event)}></input>
 
                             <i class=" icon fas fa-map-marker-alt"></i>
                             <span className='name-titl'><FormattedMessage id='booking.address' /></span>
-                            <input type='text' className=' form-control' ></input>
+                            <input type='text' className=' form-control'
+                                value={this.state.address}
+                                onChange={(event) => this.handleChangeAddress(event)}></input>
 
                             <i class="icon fas fa-plus-circle"></i>
                             <span className='name-titl'><FormattedMessage id='booking.reason' /></span>
-                            <textarea rows={4} type='text' className=' form-control' ></textarea>
+                            <textarea rows={4} type='text' className=' form-control'
+                                value={this.state.reason}
+                                onChange={(event) => this.handleChangeReason(event)}></textarea>
                         </div>
 
                         <div className='payment'>
@@ -158,7 +229,8 @@ class Booking extends Component {
                             </div>
                         </div>
                         <div className='note'><FormattedMessage id='booking.note1' /></div>
-                        <div className='btn btn-cus'><FormattedMessage id='booking.confirm' /></div>
+                        <div className='btn btn-cus'
+                            onClick={this.handleOnClickConfirm}><FormattedMessage id='booking.confirm' /></div>
                         <div className='note'><div className='note2'><FormattedMessage id='booking.note2' /></div></div>
                     </div>
                 </div>
@@ -174,7 +246,9 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         detailDoctor: state.admin.detailDoctor,
-        genders: state.admin.genders
+        genders: state.admin.genders,
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
     };
 };
 const mapDispatchToProps = dispatch => {
