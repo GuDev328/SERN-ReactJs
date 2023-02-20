@@ -50,6 +50,9 @@ const userService = {
     },
     bookingAppointment: (data) => {
         return axios.post('/api/booking-appointment', data)
+    },
+    confirmBookingAppointment: (data) => {
+        return axios.put('api/comfirm-booking', data)
     }
 }
 export default userService;

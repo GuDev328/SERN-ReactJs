@@ -118,11 +118,7 @@ class Booking extends Component {
                     disableBtnConfirm: true
                 })
                 let data = {
-                    doctorId: this.state.data.doctorId,
                     patientId: this.props.userInfo.id,
-                    timeType: this.state.data.timeType,
-                    timeData: this.state.data.timeData,
-                    date: this.state.data.date,
                     patientPhoneNumber: this.state.phoneNumber,
                     patientName: this.state.fullName,
                     patientGender: this.state.selectedGender.value,
