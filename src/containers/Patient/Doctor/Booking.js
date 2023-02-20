@@ -14,6 +14,7 @@ import moment from 'moment';
 import Select from 'react-select';
 import ModalAskLogin from '../../System/ModalAskLogin';
 import { withRouter } from 'react-router';
+import ModalConfirm from './ModalConfirm';
 class Booking extends Component {
 
     constructor(props) {
@@ -27,7 +28,9 @@ class Booking extends Component {
             dob: '',
             address: '',
             reason: '',
-            isOpenAskLogin: false
+            isOpenAskLogin: false,
+            disableBtnConfirm: false,
+            errCode: null
         }
     }
 
@@ -72,6 +75,11 @@ class Booking extends Component {
             isOpenAskLogin: !this.state.isOpenAskLogin
         })
     }
+    toggleConfirm = () => {
+        this.setState({
+            isOpenConfirm: !this.state.isOpenConfirm
+        })
+    }
     handleChangeGender = (selectedGender) => {
         this.setState({ selectedGender })
     }
@@ -104,7 +112,11 @@ class Booking extends Component {
             this.setState({ isOpenAskLogin: true })
             //this.props.history.push(`/login`)
         } else {
+
             if (this.dataValidation()) {
+                this.setState({
+                    disableBtnConfirm: true
+                })
                 let data = {
                     doctorId: this.state.data.doctorId,
                     patientId: this.props.userInfo.id,
@@ -117,14 +129,26 @@ class Booking extends Component {
                     patientDob: this.state.dob,
                     patientAddress: this.state.address,
                     patientReason: this.state.reason,
-                    language: this.props.language
+                    language: this.props.language,
+                    scheduleId: this.state.data.id
                 }
-                let response = await userService.bookingAppointment(data)
-                alert(response.errMessage)
+                let response = {}
+                try {
+                    response = await userService.bookingAppointment(data);
+                } catch (error) {
+                    console.log(error);
+                } finally {
+                    this.setState({
+                        disableBtnConfirm: false,
+                        isOpenConfirm: true,
+                        errCode: response.errCode
+                    });
+                }
             }
         }
     }
     render() {
+        console.log(this.state.data)
         let detailDoctor = this.props.detailDoctor
         let priceVi = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueVi : ''
         let priceEn = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueEn : ''
@@ -149,6 +173,10 @@ class Booking extends Component {
                 <HeaderHome />
                 <ModalAskLogin isOpen={this.state.isOpenAskLogin}
                     toggle={this.toggleAsk} />
+                <ModalConfirm isOpen={this.state.isOpenConfirm}
+                    toggle={this.toggleConfirm}
+                    errCode={this.state.errCode}
+                />
                 <div className='booking'>
                     <div className='booking-container'>
                         <div className='doctor'>
@@ -229,8 +257,9 @@ class Booking extends Component {
                             </div>
                         </div>
                         <div className='note'><FormattedMessage id='booking.note1' /></div>
-                        <div className='btn btn-cus'
-                            onClick={this.handleOnClickConfirm}><FormattedMessage id='booking.confirm' /></div>
+                        <button className='btn btn-cus'
+                            disabled={this.state.disableBtnConfirm}
+                            onClick={this.handleOnClickConfirm}><FormattedMessage id='booking.confirm' /></button>
                         <div className='note'><div className='note2'><FormattedMessage id='booking.note2' /></div></div>
                     </div>
                 </div>
