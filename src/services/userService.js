@@ -52,7 +52,23 @@ const userService = {
         return axios.post('/api/booking-appointment', data)
     },
     confirmBookingAppointment: (data) => {
-        return axios.put('api/comfirm-booking', data)
-    }
+        return axios.put('/api/comfirm-booking', data)
+    },
+    createNewSpecialty: (data) => {
+        return axios.post('/api/create-new-specialty', data)
+    },
+    getAllSpecialty: () => {
+        return axios.get(`/api/get-all-specialty`)
+    },
+    deleteSpecialty: (specialtyId) => {
+        return axios.delete('/api/delete-specialty', {
+            data: {
+                id: specialtyId
+            }
+        })
+    },
+    editSpecialty: (data) => {
+        return axios.put('/api/edit-specialty', data)
+    },
 }
 export default userService;

@@ -1,0 +1,78 @@
+.manage-doctor-container {
+    .specialty-container {
+        display: flex;
+
+
+        .list-specialty {
+            width: 20%;
+
+            .title-list-specialty {
+                padding: 5px 10px;
+                font-size: 18px;
+                font-weight: bolder;
+            }
+
+
+
+            .input-create {
+                display: flex;
+
+                .input-create-new {
+                    width: 80%;
+                }
+
+                .btn-create {
+                    background-color: #5cc646;
+                    color: aliceblue;
+                    font-size: 18px;
+                    font-weight: bolder;
+                    margin: 0px 5px;
+                }
+            }
+
+        }
+
+        .right {
+            width: 80%;
+
+
+            .image {
+
+                .upload-avt {
+
+                    border-radius: 5px;
+                    color: aliceblue;
+                    background-color: #0071ba;
+                    padding: 5px 10px;
+                }
+
+
+            }
+
+            .preview-avt {
+                width: 60%;
+                height: 100px;
+                background: center center no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+
+        }
+    }
+}
+
+.icon-edit {
+    cursor: pointer;
+    color: yellow;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.icon-delete {
+    cursor: pointer;
+
+    color: red;
+    font-size: 16px;
+
+}
