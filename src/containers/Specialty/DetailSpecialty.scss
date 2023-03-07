@@ -1,0 +1,83 @@
+.header-container {
+    .header {
+        width: 100%;
+        height: 60px;
+        background-color: #00c6d4;
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+
+        .header-left {
+            margin-left: 100px;
+
+            .arrow-back {
+                margin-top: 20px;
+                font-size: 20px;
+                color: aliceblue;
+            }
+        }
+
+    }
+
+    .header-right {
+        margin-right: 100px;
+        display: flex;
+        align-items: center;
+        color: aliceblue;
+
+        .support {
+            font-size: 15px;
+            margin-right: 20px;
+        }
+
+        .menu {
+            font-size: 25px;
+        }
+    }
+}
+
+.specialty-container {
+    padding: 60px 10% 20px 10%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+
+
+    .mask {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color: #fff, $alpha: 0.8);
+        background-clip: margin-box;
+        order: 2;
+    }
+
+    .detail-specialty {
+        position: relative;
+
+
+    }
+}
+
+.list-doctor {
+    background-color: #eeeeee;
+    padding: 20px;
+
+    .doctor {
+        width: 80%;
+        margin: 20px 10%;
+        background-color: #fff;
+        display: flex;
+        border-radius: 10px;
+
+        .infoDoctor {
+            margin: 0px;
+        }
+    }
+}
+
+hr {
+    margin: 0px;
+}

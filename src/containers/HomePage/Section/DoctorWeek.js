@@ -40,6 +40,7 @@ class DoctorWeek extends Component {
 
     render() {
         let topDoctors = this.state.arrTopDoctors
+        console.log(topDoctors)
         var settings = {
             dots: false,
             infinite: false,
@@ -68,7 +69,7 @@ class DoctorWeek extends Component {
                                         <div className='div-section' onClick={() => this.handleViewDetailDoctor(item.id)}>
                                             <img className='img-cus' src={imgBase64} />
                                             <p className='img-title'>{this.props.language == languages.VI ? item.positionData.valueVi + ', ' + doctorNameVi : item.positionData.valueEn + ', ' + doctorNameEn} </p>
-                                            <p className='speciality-of-doctor'>Sức khoẻ tâm thần</p>
+                                            <p className='speciality-of-doctor'>{item.DoctorInfo.Specialty.name ? item.DoctorInfo.Specialty.name : 'Loading..'}</p>
                                         </div>
                                     )
                                 })

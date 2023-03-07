@@ -70,5 +70,8 @@ const userService = {
     editSpecialty: (data) => {
         return axios.put('/api/edit-specialty', data)
     },
+    getListDetailDoctorBySpecialty: (specialtyId) => {
+        return axios.get(`/api/get-list-detail-doctors-by-specialty?id=${specialtyId}`)
+    }
 }
 export default userService;

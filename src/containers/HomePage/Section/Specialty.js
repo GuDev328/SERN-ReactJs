@@ -2,25 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Section.scss'
 import { FormattedMessage } from 'react-intl'
+import { userService } from '../../../services';
 import { languages } from '../../../utils'
 import { changeLanguageApp } from '../../../store/actions'
 import Slider from "react-slick";
+import { Link } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import cxk from '../../../assets/speciality/section-co-xuong-khop.jpg'
-import tk from '../../../assets/speciality/section-than-kinh.jpg'
-import th from '../../../assets/speciality/section-tieu-hoa.jpg'
-import tm from '../../../assets/speciality/section-tim-mach.jpg'
-import tmh from '../../../assets/speciality/section-tai-mui-hong.jpg'
-import cs from '../../../assets/speciality/section-cot-song.jpg'
+
 
 class Specialty extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            arrSpecialty: []
+        }
+    }
+
+    async componentDidMount() {
+        let listSpecialty = await userService.getAllSpecialty()
+        if (listSpecialty && listSpecialty.errCode === 0) {
+            this.setState({
+                arrSpecialty: listSpecialty.data
+            })
+        }
+    }
 
     handleChangeLanguage = (lang) => {
         this.props.changeLanguageAppRedux(lang)
     }
 
+    handleOnClickSpecialty = (item) => {
+
+    }
+
     render() {
+        console.log(this.state.arrSpecialty)
         var settings = {
             dots: false,
             infinite: false,
@@ -37,31 +54,23 @@ class Specialty extends Component {
                     </div>
                     <div className='section-content'>
                         <Slider {...settings}>
-                            <div className='div-section'>
-                                <img className='img-cus' src={cxk} />
-                                <p className='img-title'>Cơ xương khớp</p>
-                            </div>
+                            {this.state.arrSpecialty && this.state.arrSpecialty.length > 0 &&
+                                this.state.arrSpecialty.map((item, index) => {
+                                    let imgBase64 = ''
+                                    if (item.image) {
+                                        imgBase64 = new Buffer(item.image, 'base64').toString('binary')
+                                    }
+                                    return <Link to={{ pathname: '/detail-specialty', state: { data: item } }}>
+                                        <div className='div-section'>
+                                            <div className='img-cus' style={{ backgroundImage: `url(${imgBase64})` }} ></div>
+                                            <p className='img-title'>{item.name}</p>
+                                        </div>
+                                    </Link>
 
-                            <div className='div-section'>
-                                <img className='img-cus' src={tk} />
-                                <p className='img-title'>Thần kinh</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={th} />
-                                <p className='img-title'>Tiêu hoá</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={tm} />
-                                <p className='img-title'>Tim mạch</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={tmh} />
-                                <p className='img-title'>Tai mũi họng</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={cs} />
-                                <p className='img-title'>Cột sống</p>
-                            </div>
+                                })
+
+                            }
+
                         </Slider>
                     </div>
                 </div>

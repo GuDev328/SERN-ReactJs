@@ -31,13 +31,15 @@ class DoctorManage extends Component {
             selectedPrice: null,
             selectedPayment: null,
             selectedProvince: null,
+            selectedSpecialty: null,
             nameClinic: '',
             addressClinic: '',
             note: '',
 
             priceArr: [],
             paymentArr: [],
-            provinceArr: []
+            provinceArr: [],
+            arrSpecialty: []
         }
     }
     async componentDidMount() {
@@ -45,7 +47,12 @@ class DoctorManage extends Component {
         this.props.getPriceStart()
         this.props.getPaymentStart()
         this.props.getProvinceStart()
-
+        let listSpecialty = await userService.getAllSpecialty()
+        if (listSpecialty && listSpecialty.errCode === 0) {
+            this.setState({
+                arrSpecialty: this.arrSpecialtyToSelectOption(listSpecialty.data)
+            })
+        }
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.doctors !== this.props.doctors) {
@@ -94,7 +101,6 @@ class DoctorManage extends Component {
     handleChange = async (selectedOption) => {
         this.setState({ selectedOption });
         let detailDoctor = await userService.getDetailDoctor(selectedOption.value)
-        console.log(detailDoctor)
         if (detailDoctor && detailDoctor.errCode == 0 && detailDoctor.data && detailDoctor.data.DoctorInfo
             && detailDoctor.data.DoctorInfo.id) {
             let doctorInfo = detailDoctor.data.DoctorInfo
@@ -102,6 +108,9 @@ class DoctorManage extends Component {
                 nameClinic: doctorInfo.nameClinic,
                 addressClinic: doctorInfo.nameClinic,
                 note: doctorInfo.note,
+                selectedSpecialty: this.state.arrSpecialty.find((item, index) => {
+                    return item.value == doctorInfo.specialtyId
+                }),
                 selectedPrice: this.state.priceArr.find((item, index) => {
                     return item.value == doctorInfo.priceId
                 }),
@@ -118,6 +127,7 @@ class DoctorManage extends Component {
                 addressClinic: '',
                 note: '',
                 selectedPrice: null,
+                selectedSpecialty: null,
                 selectedPayment: null,
                 selectedProvince: null,
             })
@@ -163,12 +173,16 @@ class DoctorManage extends Component {
     handleChangeProvince = (selectedProvince) => {
         this.setState({ selectedProvince })
     }
+    handleChangeSpecialty = (selectedSpecialty) => {
+        this.setState({ selectedSpecialty })
+    }
     validationInfo = () => {
         if (!this.state.contentHTMLMarkdown ||
             !this.state.contentMarkdown ||
             !this.state.description ||
             !this.state.selectedOption ||
             !this.state.selectedPrice ||
+            !this.state.selectedSpecialty ||
             !this.state.selectedPayment ||
             !this.state.selectedProvince ||
             !this.state.note ||
@@ -194,6 +208,7 @@ class DoctorManage extends Component {
             provinceId: this.state.selectedProvince.value,
             paymentId: this.state.selectedPayment.value,
             nameClinic: this.state.nameClinic,
+            specialtyId: this.state.selectedSpecialty.value,
             addressClinic: this.state.addressClinic,
             note: this.state.note
         })
@@ -204,12 +219,26 @@ class DoctorManage extends Component {
             selectedOption: null,
             selectedPrice: null,
             selectedPayment: null,
+            selectedSpecialty: null,
             selectedProvince: null,
             note: '',
             nameClinic: '',
             addressClinic: ''
         })
         alert("Saved Info Doctor")
+    }
+    arrSpecialtyToSelectOption = (arr) => {
+        let options = []
+        let { language } = this.props
+        if (arr && arr.length > 0) {
+            arr.map((item, index) => {
+                let object = {}
+                object.label = item.name
+                object.value = item.id
+                options.push(object)
+            })
+        }
+        return options
     }
     arrToSelectOption = (arr) => {
         let options = []
@@ -266,6 +295,12 @@ class DoctorManage extends Component {
                             value={this.state.selectedOption}
                             onChange={this.handleChange}
                             options={this.state.arrDoctors}
+                        />
+                        <p className='mt-3 mb-0'>Chuyên khoa:</p>
+                        <Select
+                            value={this.state.selectedSpecialty}
+                            onChange={this.handleChangeSpecialty}
+                            options={this.state.arrSpecialty}
                         />
                     </div>
                     <div className='textarea'>

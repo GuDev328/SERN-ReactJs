@@ -21,6 +21,7 @@ import CustomScrollbars from '../components/CustomScrollbars';
 import Doctor from '../routes/Doctor';
 import Booking from './Patient/Doctor/Booking';
 import ConfirmBooking from './Patient/ConfirmBooking'
+import DetailSpecialty from './Specialty/DetailSpecialty';
 import { CustomToastCloseButton } from '../components/CustomToast';
 
 
@@ -62,6 +63,7 @@ class App extends Component {
                                     <Route path="/detail-doctor/:id" component={DetailDoctor} />
                                     <Route path="/booking" component={Booking} />
                                     <Route path="/confirm-booking" component={ConfirmBooking} />
+                                    <Route path="/detail-specialty" component={DetailSpecialty} />
 
                                 </Switch>
                             </CustomScrollbars>
