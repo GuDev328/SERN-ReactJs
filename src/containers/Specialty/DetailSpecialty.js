@@ -71,7 +71,17 @@ class DetailSpecialty extends Component {
                 <div className='list-doctor'>
                     {arrDoctor && arrDoctor.length > 0 &&
                         arrDoctor.map((item, index) => {
-
+                            console.log(item)
+                            let titleDoctor = ''
+                            if (this.props.language === 'vi') {
+                                titleDoctor = item.positionData.valueVi + ' ' +
+                                    item.lastName + ' ' +
+                                    item.firstName
+                            } else {
+                                titleDoctor = item.positionData.valueEn + ' ' +
+                                    item.firstName + ' ' +
+                                    item.lastName
+                            }
                             return (<div className='doctor'>
                                 <div className='infoDoctor'>
                                     <div className='avt'>
@@ -79,7 +89,7 @@ class DetailSpecialty extends Component {
                                     </div>
                                     <div className='doctor-content'>
                                         <div className='title-doctor'>
-                                            {item.firstName}
+                                            {titleDoctor}
                                         </div>
                                         <div className='description'>
                                             {item.Markdown.description}
