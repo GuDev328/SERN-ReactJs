@@ -72,6 +72,24 @@ const userService = {
     },
     getListDetailDoctorBySpecialty: (specialtyId) => {
         return axios.get(`/api/get-list-detail-doctors-by-specialty?id=${specialtyId}`)
-    }
+    },
+
+    createNewClinic: (data) => {
+        return axios.post('/api/create-new-clinic', data)
+    },
+    getAllClinics: () => {
+        return axios.get(`/api/get-all-clinic`)
+    },
+
+    editClinic: (data) => {
+        return axios.put('/api/edit-clinic', data)
+    },
+    deleteClinic: (clinicId) => {
+        return axios.delete('/api/delete-clinic', {
+            data: {
+                id: clinicId
+            }
+        })
+    },
 }
 export default userService;

@@ -14,6 +14,8 @@ import moment from 'moment';
 import Select from 'react-select';
 import { withRouter } from 'react-router';
 import { useParams } from 'react-router-dom';
+import logo from "../../../src/assets/logo.svg"
+
 class Booking extends Component {
 
     constructor(props) {

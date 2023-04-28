@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import logo from "../../../../src/assets/logo.svg"
 
 class ModalAskLogin extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class ModalAskLogin extends Component {
                     {this.props.errCode === 0 &&
                         <div>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
                             <div className='icon2'><i class="fas fa-envelope"></i></div>
                             <h3 className='cofirm-title'>Chỉ còn 1 bước nữa thôi</h3>
@@ -59,7 +60,7 @@ class ModalAskLogin extends Component {
                     {this.props.errCode === 2 &&
                         <div>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
                             <div className='icon2'><i class="fas fa-envelope-open"></i></div>
                             <h3 className='cofirm-title'>Xác nhận qua email</h3>
@@ -75,7 +76,7 @@ class ModalAskLogin extends Component {
                     {this.props.errCode === 3 &&
                         <div>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
 
                             <div className='icon3'><i class="fas fa-times-circle"></i></div>
@@ -90,7 +91,7 @@ class ModalAskLogin extends Component {
                     {this.props.errCode === -1 &&
                         <div>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
 
                             <div className='icon3'><i class="fas fa-times-circle"></i></div>
@@ -107,7 +108,7 @@ class ModalAskLogin extends Component {
                     {this.props.errCode === 5 &&
                         <div>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
 
                             <div className='icon5'><i class="far fa-check-circle"></i></div>

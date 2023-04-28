@@ -188,7 +188,7 @@ class SpecialtyManage extends Component {
             <div className='manage-doctor-container'>
                 <Header />
                 <div className='title'>Manage Specialty</div>
-                <div className='specialty-container'>
+                <div className='specialty-containerr'>
                     <div className='list-specialty'>
                         <p className='title-list-specialty'>Danh sách chuyên khoa</p>
                         <div className='input-create'>

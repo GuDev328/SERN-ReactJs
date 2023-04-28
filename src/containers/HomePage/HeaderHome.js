@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import './HeaderHome.scss'
 import { FormattedMessage } from 'react-intl'
 import { languages } from '../../utils'
+import { Link } from 'react-router-dom';
+
 import { changeLanguageApp } from '../../store/actions'
 import * as actions from "../../store/actions";
+import logo from "../../../src/assets/logo.svg"
+
+
 class HeaderHome extends Component {
 
     handleChangeLanguage = (lang) => {
@@ -19,9 +24,12 @@ class HeaderHome extends Component {
                         <div className='left-content'>
                             <div className='menu-logo'>
                                 <i class="menu fas fa-bars"></i>
-                                <div className='logo'>
-                                    <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
-                                </div>
+                                <Link to={{ pathname: '/home' }}>
+                                    <div className='logo'>
+                                        <img src={logo}></img>
+                                    </div>
+                                </Link>
+
                             </div>
                         </div>
 

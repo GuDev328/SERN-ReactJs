@@ -4,6 +4,9 @@ import './FooterHome.scss'
 import { FormattedMessage } from 'react-intl'
 import { languages } from '../../utils'
 import { changeLanguageApp } from '../../store/actions'
+import logo from "../../../src/assets/logo.svg"
+
+import cn from "../../../src/assets/bo-cong-thuong.svg"
 
 class FooterHome extends Component {
 
@@ -18,14 +21,14 @@ class FooterHome extends Component {
                     <div className='footer-content'>
                         <div className='colum1'>
                             <div className='logo'>
-                                <img src='https://bookingcare.vn/assets/icon/bookingcare-2020.svg'></img>
+                                <img src={logo}></img>
                             </div>
                             <div className='title-cl1'><FormattedMessage id="homefooter.companyName" /></div>
                             <div> <i class="fas fa-map-marker-alt"></i> 28 Thành Thái, Dịch Vọng, Cầu Giấy, Hà Nội</div>
                             <div><i class="fas fa-check"></i> ĐKKD số: 0106790291. Sở KHĐT Hà Nội cấp ngày 16/03/2015</div>
                             <div>
-                                <img className='bct' src='https://bookingcare.vn/assets/icon/bo-cong-thuong.svg'></img>
-                                <img className='bct' src='https://bookingcare.vn/assets/icon/bo-cong-thuong.svg'></img>
+                                <img className='bct' src={cn}></img>
+                                <img className='bct' src={cn}></img>
                             </div>
                         </div>
                         <div className='colum2'>

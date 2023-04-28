@@ -317,3 +317,29 @@ export const fetchProvinceSuccess = (provinceData) => ({
 export const fetchProvinceFail = () => ({
     type: actionTypes.FETCH_PROVINCE_FAIL
 });
+
+export const fetchAllClinicsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let resClinic = await userService.getAllClinics()
+            if (resClinic && resClinic.errCode === 0) {
+                resClinic = resClinic.data
+                dispatch(fetchAllClinicsSuccess(resClinic));
+            } else {
+                dispatch(fetchAllClinicsFail());
+            }
+        } catch (error) {
+            dispatch(fetchAllClinicsFail());
+            console.log("fetchAllClinicsStart" + error)
+        }
+    }
+};
+
+export const fetchAllClinicsSuccess = (dataClinics) => ({
+    type: actionTypes.FETCH_ALL_CLINICS_SUCCESS,
+    data: dataClinics
+});
+
+export const fetchAllClinicsFail = () => ({
+    type: actionTypes.FETCH_ALL_CLINICS_FAIL
+});

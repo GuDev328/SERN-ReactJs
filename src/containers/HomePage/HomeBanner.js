@@ -4,7 +4,8 @@ import './HeaderHome.scss'
 import { FormattedMessage } from 'react-intl'
 import { languages } from '../../utils'
 import { changeLanguageApp } from '../../store/actions'
-
+import downapk from "../../../src/assets/download-apk.svg"
+import downios from "../../../src/assets/download-ios.svg"
 class HomeBanner extends Component {
 
     handleChangeLanguage = (lang) => {
@@ -25,8 +26,8 @@ class HomeBanner extends Component {
                             <input className='input-search' type='text' placeholder='Nhập Thông Tin Tìm Kiếm' />
                         </div>
                         <div className='download-app'>
-                            <img className='img-down' src='https://bookingcare.vn/assets/icon/google-play-badge.svg' />
-                            <img className='img-down' src='https://bookingcare.vn/assets/icon/app-store-badge-black.svg' />
+                            <img className='img-down' src={downapk} />
+                            <img className='img-down' src={downios} />
                         </div>
                         <div className='list-option'>
 
