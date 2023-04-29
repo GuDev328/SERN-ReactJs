@@ -7,20 +7,22 @@ import { changeLanguageApp } from '../../../store/actions'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import bvvd from '../../../assets/medicalfacility/bv-viet-duc.jpg'
-import bvcr from '../../../assets/medicalfacility/bv-cho-ray-h1.jpg'
-import dhyd1 from '../../../assets/medicalfacility/pk-dhyd1.jpg'
-import bvk from '../../../assets/medicalfacility/bvk.jpg'
-import bvhv from '../../../assets/medicalfacility/bv-hung-viet.jpg'
-import bvtc from '../../../assets/medicalfacility/bv-thu-cuc-1.jpg'
+import * as actions from '../../../store/actions'
+import { Link } from 'react-router-dom';
+
 
 class MedicalFacility extends Component {
+
+    componentDidMount() {
+        this.props.getAllClinic()
+    }
 
     handleChangeLanguage = (lang) => {
         this.props.changeLanguageAppRedux(lang)
     }
 
     render() {
+        let clinics = this.props.clinics
         var settings = {
             dots: false,
             infinite: false,
@@ -29,7 +31,8 @@ class MedicalFacility extends Component {
             slidesToScroll: 1
         };
         return (
-            <React.Fragment>
+
+            <div>
                 <div className='section' style={{ backgroundColor: "#efefef" }}>
                     <div className='section-header'>
                         <div className='section-title'><FormattedMessage id="section-specialty.medical-facility" /></div>
@@ -37,35 +40,25 @@ class MedicalFacility extends Component {
                     </div>
                     <div className='section-content'>
                         <Slider {...settings}>
-                            <div className='div-section'>
-                                <img className='img-cus' src={bvvd} />
-                                <p className='img-title'>Bệnh viên Hữu nghị Việt Đức</p>
-                            </div>
+                            {clinics && clinics.length > 0 &&
+                                clinics.map((item, index) => {
+                                    let imgBase64 = ''
+                                    if (item.avt) {
+                                        imgBase64 = new Buffer(item.avt, 'base64').toString('binary')
+                                    }
+                                    return <Link to={{ pathname: '/detail-clinic', state: { data: item } }}>
+                                        <div className='div-section'>
+                                            <img className='img-cus' src={imgBase64} />
+                                            <p className='img-title'>{item.name}</p>
+                                        </div></Link>
 
-                            <div className='div-section'>
-                                <img className='img-cus' src={bvcr} />
-                                <p className='img-title'>Bệnh viện Chợ rẫy</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={dhyd1} />
-                                <p className='img-title'>Phòng khám Bệnh viện Đại học y dược 1</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={bvk} />
-                                <p className='img-title'>Bệnh viện K- Cơ sở Phan Chu Trinh</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={bvhv} />
-                                <p className='img-title'>Bệnh viện Ung bướu Hưng Việt</p>
-                            </div>
-                            <div className='div-section'>
-                                <img className='img-cus' src={bvtc} />
-                                <p className='img-title'>Hệ thống Y tế Thu Cúc TCI</p>
-                            </div>
+                                })
+
+                            }
                         </Slider>
                     </div>
                 </div>
-            </React.Fragment >
+            </div>
         );
     }
 
@@ -75,12 +68,14 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        clinics: state.admin.clinics
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang))
+        changeLanguageAppRedux: (lang) => dispatch(changeLanguageApp(lang)),
+        getAllClinic: () => dispatch(actions.fetchAllClinicsStart())
     };
 };
 
