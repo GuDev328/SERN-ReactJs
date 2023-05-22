@@ -73,6 +73,13 @@ const userService = {
     getListDetailDoctorBySpecialty: (specialtyId) => {
         return axios.get(`/api/get-list-detail-doctors-by-specialty?id=${specialtyId}`)
     },
+    getAppoitment: (doctorId, date) => {
+        return axios.get(`/api/get-appoitment?doctorId=${doctorId}&date=${date}`)
+    },
+    doneAppointment: (data) => {
+        console.log(data)
+        return axios.post('/api/done-appoitment', data)
+    },
 
     createNewClinic: (data) => {
         return axios.post('/api/create-new-clinic', data)
@@ -91,5 +98,6 @@ const userService = {
             }
         })
     },
+
 }
 export default userService;

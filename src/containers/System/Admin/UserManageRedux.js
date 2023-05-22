@@ -199,7 +199,6 @@ class UserManageRedux extends Component {
             isEditing: true,
         })
 
-        console.log(this.state)
         if (this.state.isChangeImage) {
             this.setState({
                 image: user.image

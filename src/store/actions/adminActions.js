@@ -165,13 +165,11 @@ export const fetchAllDoctorsFail = () => ({
 export const saveInfoDoctorStart = (data) => {
     return async (dispatch, getState) => {
         try {
-            console.log(data)
             let res = await userService.saveInfoDoctor(data)
             if (res && res.errCode === 0) {
                 dispatch(saveInfoDoctorSuccess());
             } else {
                 dispatch(saveInfoDoctorFail());
-                console.log(res)
             }
         } catch (error) {
             dispatch(saveInfoDoctorFail());

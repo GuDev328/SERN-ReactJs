@@ -35,7 +35,6 @@ class DetailClinic extends Component {
     }
 
     render() {
-        console.log(this.state.data)
         let img, avt
         if (this.state.data.image) {
             img = new Buffer(this.state.data.image, 'base64').toString('binary')

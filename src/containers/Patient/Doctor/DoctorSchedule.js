@@ -47,7 +47,7 @@ class DoctorSchedule extends Component {
         let response = await userService.getSchedule(this.props.doctorId, this.state.date)
         this.setState({
             arrTime: response.response.data
-        }, () => console.log(this.state.arrTime))
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -59,10 +59,9 @@ class DoctorSchedule extends Component {
             date: event.target.value,
         }, async () => {
             let response = await userService.getSchedule(this.props.doctorId, this.state.date)
-            console.log(response)
             this.setState({
                 arrTime: response.response.data
-            }, () => console.log(this.state.arrTime))
+            })
         })
 
     }

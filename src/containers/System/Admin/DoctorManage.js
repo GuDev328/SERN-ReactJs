@@ -152,7 +152,6 @@ class DoctorManage extends Component {
                 hasOldData: false
             })
         }
-        console.log(this.state.hasOldData)
     };
     handleOnChangeDecs = (event) => {
         this.setState({

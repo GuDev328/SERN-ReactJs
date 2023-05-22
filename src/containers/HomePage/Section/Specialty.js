@@ -37,7 +37,6 @@ class Specialty extends Component {
     }
 
     render() {
-        console.log(this.state.arrSpecialty)
         var settings = {
             dots: false,
             infinite: false,

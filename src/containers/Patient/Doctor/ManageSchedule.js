@@ -11,6 +11,7 @@ import { userService } from '../../../services'
 import { languages, CommonUtils } from '../../../utils';
 import * as actions from '../../../store/actions'
 import Select from 'react-select';
+import ModalShowDetailPatient from './ModalShowDetailPatient';
 
 class ManageSchedule extends Component {
 
@@ -21,7 +22,10 @@ class ManageSchedule extends Component {
             arrDoctors: [],
             date: '',
             TimeArr: [],
-            maxPatient: null
+            maxPatient: null,
+            appoitment: [],
+            isOpenShowDetailPatient: false,
+            disChangeTime: false
         }
     }
 
@@ -51,13 +55,22 @@ class ManageSchedule extends Component {
                     return item
                 }
                 )
-
-
                 this.setState({
                     TimeArr: this.props.times
                 })
             }
         }
+    }
+
+    toggleShowDetailPatient = () => {
+        this.setState({
+            isOpenShowDetailPatient: !this.state.isOpenShowDetailPatient
+        })
+    }
+    toggleSendEmail = () => {
+        this.setState({
+            isOpenSendEmail: !this.state.isOpenSendEmail
+        })
     }
     arrDoctorToSelectOption = (arrDoctors) => {
         let options = []
@@ -102,8 +115,13 @@ class ManageSchedule extends Component {
         if (this.state.selectedOption && this.state.date) {
             let date = moment(this.state.date).format("YYYY-MM-DD")
             let dataTime = await userService.getSchedule(this.state.selectedOption.value, date)
+            let dataAppoitment = await userService.getAppoitment(this.state.selectedOption.value, date)
+            if (dataAppoitment.response.errCode === 0) {
+                dataAppoitment = dataAppoitment.response.data
+            } else {
+                dataAppoitment = []
+            }
             dataTime = dataTime.response.data
-            console.log(dataTime)
             this.resetTimeArr()
             let updatedTimeArr = this.state.TimeArr.map((item1, index) => {
                 dataTime.map((item2, index) => {
@@ -116,7 +134,8 @@ class ManageSchedule extends Component {
             let maxPatient = dataTime[0] ? dataTime[0].maxNumber : 0
             this.setState({
                 TimeArr: updatedTimeArr,
-                maxPatient: maxPatient
+                maxPatient: maxPatient,
+                appoitment: dataAppoitment
             })
         }
     }
@@ -129,11 +148,24 @@ class ManageSchedule extends Component {
     };
 
     onChangeDate = (event) => {
-        this.setState({
-            date: event.target.value
-        }, async () => {
-            this.getSchedule()
-        })
+        const currentDate = new Date()
+        let chooseDate = new Date(event.target.value)
+        if (chooseDate <= currentDate) {
+            this.setState({
+                date: event.target.value,
+                disChangeTime: true
+            }, async () => {
+                this.getSchedule()
+            })
+        } else {
+            this.setState({
+                date: event.target.value,
+                disChangeTime: false
+            }, async () => {
+                this.getSchedule()
+            })
+        }
+
 
     }
 
@@ -203,12 +235,33 @@ class ManageSchedule extends Component {
             maxPatient: event.target.value
         })
     }
+    handleOnClickShowDetailPatient = () => {
+        this.setState({
+            isOpenShowDetailPatient: true
+        })
+    }
+    handleOnClickSendEmail = () => {
+        this.setState({
+            isOpenSendEmail: true
+        })
+    }
+    handleDoneAppoitment = (item) => {
+        let conf = window.confirm("Xác nhận hoàn thành khám bệnh cho bệnh nhân này?")
+        if (conf) {
+            let res = userService.doneAppointment({
+                bookingId: item.id
+            })
+            this.getSchedule()
+        }
+    }
+
     render() {
         let timeSchedule = this.state.TimeArr
-        const isDisabled = this.props.userInfo.roleId === 'R2';
+        const isDisabled = this.props.userInfo.role === 'R2';
         return (
             <div >
                 <Header />
+
                 <div className='schedule-container'>
                     <div className='title'>Quản lý kế hoạch bác sĩ</div>
                     <div className='container'>
@@ -256,11 +309,48 @@ class ManageSchedule extends Component {
                                     )
                                 })
                             }
+                            <div hidden={this.state.disChangeTime} className='saveTime btn btn-primary'
+                                onClick={() => this.handleSaveTime()}>Save Time</div>
                         </div>
-                        <div className='saveTime btn btn-primary'
-                            onClick={() => this.handleSaveTime()}>Save Time</div>
-                    </div>
 
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr className="table-primary">
+                                <th scope="col">STT</th>
+                                <th scope="col">Họ Tên</th>
+                                <th scope="col">Giới tính</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Giờ hẹn</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.appoitment && this.state.appoitment.length > 0
+                                && this.state.appoitment.map((item, index) => {
+                                    if (item.statusId !== 'S1') return <tr>
+                                        <th scope="row">{index + 1}</th>
+                                        <td>{item.PatientInfo.name}</td>
+                                        <td>{item.PatientInfo.genderPatientData.valueVi}</td>
+                                        <td>{item.PatientInfo.phoneNumber}</td>
+                                        <td>{item.Schedule.timeData.valueVi}</td>
+                                        <td>{item.statusData.valueVi}</td>
+                                        <td>
+                                            <div
+                                                onClick={this.handleOnClickShowDetailPatient}
+                                                className='btn-action btn btn-primary'>Xem chi tiết</div>
+                                            <ModalShowDetailPatient isOpen={this.state.isOpenShowDetailPatient}
+                                                toggle={this.toggleShowDetailPatient}
+                                                data={item} />
+                                            <div className='btn-action btn btn-success'
+                                                onClick={() => this.handleDoneAppoitment(item)}>Khám Xong!</div>
+                                        </td>
+                                    </tr>
+                                })}
+
+                        </tbody>
+                    </table>
                 </div>
             </div >
         )

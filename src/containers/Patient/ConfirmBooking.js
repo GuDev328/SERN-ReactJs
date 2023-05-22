@@ -36,7 +36,10 @@ class Booking extends Component {
             patientId: searchParams.get('patientId'),
             userInfo: this.props.userInfo,
             isLoggedIn: this.props.isLoggedIn
+        }, () => {
+
         })
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,10 +63,13 @@ class Booking extends Component {
                 userId: this.state.userInfo.id
             }
             let response = await userService.confirmBookingAppointment(data)
-            this.setState({
-                success: true,
-                errCode: response.errCode
-            })
+            if (this.state.errCode !== response.errCode) {
+                this.setState({
+                    success: true,
+                    errCode: response.errCode
+                })
+            }
+
         }
     }
 
@@ -102,6 +108,13 @@ class Booking extends Component {
                     <div className='errlogin'><div className='icon-notfound'><i class="fas fa-times-circle"></i></div>
                         <h3 className='err-title'>Không tìm thấy lịch hẹn</h3>
                         <p>Lịch hẹn này có thể đã hoàn thành hoặc bị huỷ</p>
+                    </div>
+                }
+
+                {this.state.success && (this.state.errCode == 5) &&
+                    <div className='errlogin'><div className='icon-notfound'><i class="fas fa-times-circle"></i></div>
+                        <h3 className='err-title'>Lịch hẹn này đã đầy chỗ</h3>
+                        <p>Xin lỗi bạn vì sự bất tiện này. Số người đặt lịch khám này quá đông. Vui lòng chọn lịch hẹn khác.</p>
                     </div>
                 }
 

@@ -49,7 +49,7 @@ class ModalAskLogin extends Component {
                             </div>
                             <div className='icon2'><i class="fas fa-envelope"></i></div>
                             <h3 className='cofirm-title'>Chỉ còn 1 bước nữa thôi</h3>
-                            <p>Bạn đăng kí thành công lịch hẹn này. Chúng tôi đã gửi email xác thực cho bạn.
+                            <p>Bạn <b>CHƯA</b> hoàn toàn đăng kí thành công lịch hẹn này. Chúng tôi đã gửi email xác thực cho bạn.
                                 Bạn hãy bấm vào liên kết trong email để xác nhận và hoàn tất thủ tục đặt lịch khám bệnh.
                             </p>
                             <Button className='px-3' color="primary" ><a href='https://mail.google.com/mail/u/0/#inbox/'>Đi đến Gmail</a></Button>{' '}
@@ -64,7 +64,7 @@ class ModalAskLogin extends Component {
                             </div>
                             <div className='icon2'><i class="fas fa-envelope-open"></i></div>
                             <h3 className='cofirm-title'>Xác nhận qua email</h3>
-                            <p>Bạn đã đăng kí lịch hẹn này. Chúng tôi đã gửi email xác thực cho bạn.
+                            <p>Bạn <b>CHƯA</b> hoàn toàn đăng kí thành công lịch hẹn này. Chúng tôi đã gửi email xác thực cho bạn.
                                 Bạn hãy bấm vào liên kết trong email để xác nhận và hoàn tất thủ tục đặt lịch khám bệnh.
                             </p>
 

@@ -144,7 +144,6 @@ class Booking extends Component {
         }
     }
     render() {
-        console.log(this.state.data)
         let detailDoctor = this.props.detailDoctor
         let priceVi = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueVi : ''
         let priceEn = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueEn : ''

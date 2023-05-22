@@ -34,7 +34,6 @@ class SpecialtyManage extends Component {
     }
     async componentDidMount() {
         let listSpecialty = await userService.getAllSpecialty()
-        console.log(listSpecialty)
         if (listSpecialty && listSpecialty.errCode === 0) {
             this.setState({
                 arrSpecialty: listSpecialty.data.reverse()
@@ -122,7 +121,6 @@ class SpecialtyManage extends Component {
                 image: base64,
                 isChangeImage: true
             }, () => {
-                console.log(this.state.avtPrev)
             })
         }
     }
@@ -183,7 +181,6 @@ class SpecialtyManage extends Component {
     }
     render() {
 
-        console.log(this.state.arrSpecialty)
         return (
             <div className='manage-doctor-container'>
                 <Header />

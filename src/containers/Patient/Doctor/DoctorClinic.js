@@ -33,7 +33,6 @@ class DoctorClinic extends Component {
 
     render() {
         let detailDoctor = this.props.detailDoctor
-        console.log(detailDoctor)
         let priceVi = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueVi : ''
         let priceEn = (detailDoctor.DoctorInfo) ? detailDoctor.DoctorInfo.priceData.valueEn : ''
         let price = this.props.language === 'vi' ? priceVi : priceEn

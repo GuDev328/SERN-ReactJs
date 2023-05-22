@@ -40,7 +40,6 @@ class DoctorWeek extends Component {
 
     render() {
         let topDoctors = this.state.arrTopDoctors
-        console.log(topDoctors)
         var settings = {
             dots: false,
             infinite: false,

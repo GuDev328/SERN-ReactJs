@@ -71,7 +71,6 @@ class DetailSpecialty extends Component {
                 <div className='list-doctor'>
                     {arrDoctor && arrDoctor.length > 0 &&
                         arrDoctor.map((item, index) => {
-                            console.log(item)
                             let titleDoctor = ''
                             if (this.props.language === 'vi') {
                                 titleDoctor = item.positionData.valueVi + ' ' +
