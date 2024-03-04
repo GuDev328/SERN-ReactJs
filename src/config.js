@@ -1,6 +1,6 @@
 export default {
     api: {
-        API_BASE_URL: "http://localhost:8080/",
+        API_BASE_URL: "https://gudev.click/",
         //,
         ROUTER_BASE_NAME: null,
     },
@@ -10,5 +10,5 @@ export default {
          * this to the sub-directory. A properly formatted basename should have a leading slash, but no trailing slash.
          */
         ROUTER_BASE_NAME: null,
-    }
+    },
 };

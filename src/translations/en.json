@@ -77,6 +77,7 @@
             }
         },
         "admin": {
+            "home": "Home",
             "manage-user": "User",
             "manage-doctor": "Manage Doctor",
             "manage-admin": "Manage Admin",
